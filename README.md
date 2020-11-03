@@ -1,2 +1,5 @@
-CS271
-<h1>HI</h1>
+# Sokoban AI Project
+## Featuring 
+# Brooke
+# Dan
+# and Jillian 
