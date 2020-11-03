@@ -2,4 +2,5 @@
 ## Featuring 
 # Brooke
 # Dan
-# and Jillian 
+## and 
+# Jillian 
