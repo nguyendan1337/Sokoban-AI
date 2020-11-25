@@ -52,27 +52,32 @@ class Board:
             for y in x:
                 line += y
             print(line)
+
     # Init the board based on the dimensions (x,y)
     def dimensions(self, line):
         self.height = line[1]
         self.length = line[0]
         self.board = [[' ' for x in range(self.length)] for y in range(self.height)]
+
     # Number of wall squares is the first number on the second line
     def wall_squares(self, line):
         for i in range(0, len(line), 2):
             x = line[i]
             y = line[i + 1]
             self.board[x][y] = WALL
+
     def goals(self, line):
         for i in range(0, len(line), 2):
             x = line[i]
             y = line[i + 1]
             self.board[x][y] = GOAL
+
     def boxes(self, line):
         for i in range(0, len(line), 2):
             x = line[i]
             y = line[i + 1]
             self.board[x][y] = BOX
+
     # Agent coordinates (x,y) are the first and second elements on the fifth line
     def agent(self, line):
         x = line[0]
