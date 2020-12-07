@@ -5,5 +5,3 @@ import sokoban as sb
 #
 sokoban = sb.Sokoban("test/sokoban01.txt")
 sokoban.print()
-
-sokoban_board = sokoban.board
