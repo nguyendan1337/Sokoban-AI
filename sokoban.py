@@ -21,6 +21,7 @@ class Sokoban:
 
     # Initialization of the board requires the path to the sokoban__.txt file
     def __init__(self, path_to_file):
+
         # Each line of the file is an element in the list
         file_contents = open(path_to_file).readlines()
         lines = list(map(lambda x: x.replace('\n', '').split(' '), file_contents))
@@ -84,13 +85,24 @@ class Sokoban:
     def agent(self, line):
         x = line[0]
         y = line[1]
+        self.agentX = x
+        self.agentY = y
         self.board[x][y] = AGENT
 
+#
+# Box object contains location coordinates and available moves
+#
+class Box:
+    def __init__(self, coordinates):
+        self.coordinates = coordinates
+        self.moves = []
 
 #
-# The main function
+# Agent contains location coordinates
 #
-board = Sokoban("test/sokoban00.txt")
-board.print()
-
-sokoban_board = board.board
+class Agent:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.coordinates = (x, y)
+        self.moves = []
