@@ -20,9 +20,9 @@ class Board:
             self.width = max(list(map(lambda x: len(self._lines[x]), range(len(self._lines)))))
             self.height = len(self._lines)
 
-            self.board = np.zeros((self.width, self.height), dtype=int)
+            self.board = np.zeros((self.height, self.width), dtype=int)
 
             for i in range(len(self._lines)):
                 line = self._lines[i]
                 for j, character in enumerate(line):
-                    self.board[j][i] = self._characters[character]
+                    self.board[i][j] = self._characters[character]
