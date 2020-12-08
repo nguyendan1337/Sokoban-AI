@@ -1,17 +1,20 @@
 from unittest import TestCase
-
+from parameterized import parameterized_class
 from board import Board
 
 
-# TODO: parameterized with different levels, something like this: https://stackoverflow.com/questions/32899/how-do-you-generate-dynamic-parameterized-unit-tests-in-python
-# https://docs.python.org/3/library/unittest.html
+@parameterized_class(('file', 'dimensions'), [
+    ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level0.txt", (3, 14)),
+    ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level1.txt", (11, 19)),
+    ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level2.txt", (10, 14)),
+    ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level47.txt", (17, 31))
+])
 class TestBoard(TestCase):
 
     def setUp(self):
-        self.board = Board('/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level1.txt')
-        self.height = 11
-        self.width = 19
-        self.dimensions = (self.height, self.width)
+        self.board = Board(self.file)
+        self.height = self.dimensions[0]
+        self.width = self.dimensions[1]
 
     # Simply checks to make sure the board and its attributes are set
     def test_board_not_None(self):
@@ -28,7 +31,6 @@ class TestBoard(TestCase):
         arr = self.board.__getattribute__('board')
         self.assertEqual(self.dimensions, arr.shape)
 
-    # TODO: failing - array index out of bounds
     # Tests that the individual characters in the board are translated correctly
     def test_translation(self):
         _characters = {
@@ -39,13 +41,16 @@ class TestBoard(TestCase):
             '.': 4,  # goal
         }
         arr = self.board.__getattribute__('board')
+        with open(self.file) as f:
+            read_data = f.read()
+            self._lines = read_data.split("\n")
 
-        with open('/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level1.txt') as f:
-            for i, line in enumerate(f):
-                for j, character in enumerate(line):
-                    print("[i,j]=", i, j)
-                    print("array[i,j]=", arr[i, j])
-
-        for x in arr:
-            for y in x:
-                print(y)
+            for i in range(self.height):
+                line = self._lines[i]
+                for j, string in enumerate(line):
+                    textFileCharacterAtCoordinate = line[j]
+                    boardValueAtCoordinate = arr[i, j]
+                    self.assertEqual(arr[i, j], _characters[line[j]],
+                                     "At coordinate [{i}, {j}]: board = {v}.  text file = {x}. \n{board}\n{text}".format(
+                                         i=i, j=j, v=boardValueAtCoordinate, x=textFileCharacterAtCoordinate, board=arr,
+                                         text=line))
