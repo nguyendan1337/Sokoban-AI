@@ -14,7 +14,7 @@ LEFT = "Left"
 RIGHT = "Right"
 
 #
-# getReachableBoxes
+# getReachableBoxes()
 # parameters: board, agent
 # returns: dictionary of boxes
 #
@@ -22,7 +22,7 @@ def getReachableBoxes(board, agent):
 
     frontier = q.Queue()                                            #create frontier queue
     start = agent.coordinates
-    frontier.put((start, [start]))                                  #put agent's current location onto frontier (node, [path])
+    frontier.put((start, []))                                       #put agent's current location onto frontier (node, [path])
     visited = {agent.coordinates}                                   #create set of reached spaces, add agent's current location
     boxes = {}                                                      #dictionary of boxes key=coordinates: value=[moves]
 
@@ -37,7 +37,7 @@ def getReachableBoxes(board, agent):
     return boxes
 
 #
-# expand
+# expand()
 # parameters: board, node, boxes, path
 # returns: list of neighbors, dictionary of boxes
 #
