@@ -2,6 +2,7 @@ import sokoban as sb
 import numpy as np
 import queue as q
 import board as b
+import random
 import pprint
 np.set_printoptions(edgeitems=30, linewidth=100000,formatter=dict(float=lambda x: "%.3g" % x))
 
@@ -55,10 +56,10 @@ def expand(board, node, boxes, path):
             if board[node[0] - 2][node[1]] != WALL:                         #if you can push the box UP
                 if (node[0] - 1, node[1]) in boxes:                             #if box exists in list of boxes
                     boxes[(node[0] - 1, node[1])]\
-                        .append({UP: path + [(node[0]-1, node[1])]})                #add UP and path to box's moves
+                        .update({UP: path + [(node[0]-1, node[1])]})                #add UP and path to box's moves
                 else:
                     boxes[(node[0] - 1, node[1])] \
-                        = [{UP: path + [(node[0]-1, node[1])]}]                     #else add box to boxes
+                        = {UP: path + [(node[0]-1, node[1])]}                       #else add box to boxes
         else:
             neighbors.append((node[0] - 1, node[1]))                     #else add UP to neighbors
 
@@ -68,10 +69,10 @@ def expand(board, node, boxes, path):
             if board[node[0] + 2][node[1]] != WALL:                         #if you can push the box DOWN
                 if (node[0] + 1, node[1]) in boxes:                             # if box exists in list of boxes
                     boxes[(node[0] + 1, node[1])]\
-                        .append({DOWN: path + [(node[0]+1, node[1])]})              # add DOWN and path to box's moves
+                        .update({DOWN: path + [(node[0]+1, node[1])]})              # add DOWN and path to box's moves
                 else:
                     boxes[(node[0] + 1, node[1])] \
-                        = [{DOWN: path + [(node[0]+1, node[1])]}]                  # else add box to boxes
+                        = {DOWN: path + [(node[0]+1, node[1])]}                     # else add box to boxes
         else:
             neighbors.append((node[0] + 1, node[1]))                    #else add DOWN to neighbors
 
@@ -81,10 +82,10 @@ def expand(board, node, boxes, path):
             if board[node[0]][node[1] - 2] != WALL:                         #if you can push the box LEFT
                 if (node[0], node[1] - 1) in boxes:                             # if box exists in list of boxes
                     boxes[(node[0], node[1] - 1)]\
-                        .append({LEFT: path + [(node[0], node[1]-1)]})              # add LEFT and path to box's moves
+                        .udpate({LEFT: path + [(node[0], node[1]-1)]})              # add LEFT and path to box's moves
                 else:
                     boxes[(node[0], node[1] - 1)] \
-                        = [{LEFT: path + [(node[0], node[1]-1)]}]                  # else add box to boxes
+                        = {LEFT: path + [(node[0], node[1]-1)]}                     # else add box to boxes
         else:
             neighbors.append((node[0], node[1] - 1))                    #else add LEFT to neighbors
 
@@ -94,10 +95,10 @@ def expand(board, node, boxes, path):
             if board[node[0]][node[1] + 2] != WALL:                         #if you can push the box RIGHT
                 if (node[0], node[1] + 1) in boxes:                             # if box exists in list of boxes
                     boxes[(node[0], node[1] + 1)]\
-                        .append({RIGHT: path + [(node[0], node[1]+1)]})             # add RIGHT and path to box's moves
+                        .udpate({RIGHT: path + [(node[0], node[1]+1)]})             # add RIGHT and path to box's moves
                 else:
                     boxes[(node[0], node[1] + 1)] \
-                        = [{RIGHT: path + [(node[0], node[1]+1)]}]                  # else add box to boxes
+                        = {RIGHT: path + [(node[0], node[1]+1)]}                    # else add box to boxes
         else:
             neighbors.append((node[0], node[1] + 1))                    #else add RIGHT to neighbors
 
@@ -115,8 +116,8 @@ def expand(board, node, boxes, path):
 # pprint.pprint(boxes)
 
 # FROM TEXT LEVELS
-b = b.Board("test/input/levels/level0.txt")
-# b = b.Board("test/input/levels/level1.txt")
+# b = b.Board("test/input/levels/level0.txt")
+b = b.Board("test/input/levels/level1.txt")
 # b = b.Board("test/input/levels/level2.txt")
 # b = b.Board("test/input/levels/level47.txt")
 board = b.board
@@ -125,3 +126,36 @@ print(str(board).translate(translation))
 agent = sb.Agent(b.agentX, b.agentY)
 boxes = getReachableBoxes(board, agent)
 pprint.pprint(boxes)
+# box = random.choice(list(boxes.items()))
+# print(box)
+# move = random.choice(list(box[1].keys()))
+# box_move = {box[0]: move}
+# print(box_move)
+
+#GET NEXT ACTION TEST
+# q_values = {}
+# q_table = {(4, 7): {'Up': 1, 'Down': 2, 'Left': 3, 'Right': 4}}
+# q_max = {}
+# q_move = {}
+# for box in boxes.keys():
+#     if box not in q_table:
+#         q_table[box] = {
+#             UP: 0,
+#             DOWN: 0,
+#             LEFT: 0,
+#             RIGHT: 0
+#         }
+#     q_values[box] = q_table[box]
+# for box in q_values.keys():
+#     max_move = max(q_values[box], key=q_values[box].get)
+#     # q_max[box] = {max_move: q_values[box][max_move]}
+#     q_move[box] = max_move
+#     q_max[box] = q_values[box][max_move]
+#
+# box = max(q_max, key=q_max.get)
+# box_move = {box: q_move[box]}
+# print(q_values)
+# print(q_max)
+# print(q_move)
+# print(box)
+# print(box_move)
