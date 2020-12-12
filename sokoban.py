@@ -19,6 +19,9 @@ AGENT_LINE = 4
 #
 class Sokoban:
 
+    box_locations = []
+    agent_location = None
+
     # Initialization of the board requires the path to the sokoban__.txt file
     def __init__(self, path_to_file):
 
@@ -80,14 +83,14 @@ class Sokoban:
             x = line[i]
             y = line[i + 1]
             self.board[x][y] = BOX
+            self.box_locations += [(x,y)]
 
     # Agent coordinates (x,y) are the first and second elements on the fifth line
     def agent(self, line):
         x = line[0]
         y = line[1]
-        self.agentX = x
-        self.agentY = y
         self.board[x][y] = AGENT
+        self.agent_location = (x,y)
 
 #
 # Box object contains location coordinates and available moves
