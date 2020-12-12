@@ -97,8 +97,7 @@ def get_next_action(boxes, epsilon, q_table):
 # sokoban = sb.Sokoban("test/input/sokoban/sokoban00.txt")
 # sokoban = sb.Sokoban("test/input/sokoban/sokoban01.txt")
 # sokoban.print()
-# agent = sb.Agent(sokoban.agentX, sokoban.agentY)
-# boxes = get_reachable_boxes(sokoban.board, agent)
+# boxes = BFS.get_reachable_boxes(sokoban.board, sokoban.agent_location)
 # pprint.pprint(boxes)
 
 # FROM TEXT LEVELS
@@ -108,9 +107,9 @@ def get_next_action(boxes, epsilon, q_table):
 # b = b.Board("test/input/levels/level2.txt")
 # b = b.Board("test/input/levels/level47.txt")
 # board = b.board
+# agent = b.agent
 # translation = {39: None}
 # print(str(board).translate(translation))
-# agent = sb.Agent(b.agentX, b.agentY)
 # boxes = BFS.get_reachable_boxes(board, agent)
 # pprint.pprint(boxes)
 

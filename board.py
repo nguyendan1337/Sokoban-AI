@@ -20,5 +20,4 @@ class Board:
                 for j, character in enumerate(line):
                     self.board[i][j] = character
                     if character == '@':
-                        self.agentX = i
-                        self.agentY = j
+                        self.agent = (i, j)

@@ -24,9 +24,9 @@ RIGHT = "Right"
 def get_reachable_boxes(board, agent):
 
     frontier = q.Queue()                                            #create frontier queue
-    start = agent.coordinates
+    start = agent
     frontier.put((start, []))                                       #put agent's current location onto frontier (node, [path])
-    visited = {agent.coordinates}                                   #create set of reached spaces, add agent's current location
+    visited = {agent}                                               #create set of reached spaces, add agent's current location
     boxes = {}                                                      #dictionary of boxes key=coordinates: value=[moves]
 
     while not frontier.empty():                                     #while the frontier is not empty
@@ -112,8 +112,7 @@ def expand(board, node, boxes, path):
 # sokoban = sb.Sokoban("test/input/sokoban/sokoban00.txt")
 # sokoban = sb.Sokoban("test/input/sokoban/sokoban01.txt")
 # sokoban.print()
-# agent = sb.Agent(sokoban.agentX, sokoban.agentY)
-# boxes = get_reachable_boxes(sokoban.board, agent)
+# boxes = get_reachable_boxes(sokoban.board, sokoban.agent_location)
 # pprint.pprint(boxes)
 
 # FROM TEXT LEVELS
@@ -123,9 +122,9 @@ def expand(board, node, boxes, path):
 # b = b.Board("test/input/levels/level2.txt")
 # b = b.Board("test/input/levels/level47.txt")
 # board = b.board
+# agent = b.agent
 # translation = {39: None}
 # print(str(board).translate(translation))
-# agent = sb.Agent(b.agentX, b.agentY)
 # boxes = get_reachable_boxes(board, agent)
 # pprint.pprint(boxes)
 
