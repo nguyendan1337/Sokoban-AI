@@ -48,6 +48,7 @@ for episode in range(1000):
         #append path to history
 
         #update Q values in Q Table
+        # q_table = Q.update_q_table(q_table, rewards)
 
         terminal = Q.is_terminal_state(board, boxes)
 

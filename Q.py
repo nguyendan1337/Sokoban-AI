@@ -89,6 +89,9 @@ def get_next_action(boxes, epsilon, q_table):
     else:
         return box_move
 
+def update_q_table(q_table, rewards):
+    return q_table
+
 
 #
 # TESTS
