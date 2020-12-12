@@ -1,8 +1,4 @@
-import sokoban as sb
-import numpy as np
 import queue as q
-import board as b
-import pprint
 
 # String constants for each component of the Sokoban puzzle
 WALL = "#"
@@ -104,27 +100,3 @@ def expand(board, node, boxes, path):
             neighbors.append((node[0], node[1] + 1))                    #else add RIGHT to neighbors
 
     return neighbors, boxes
-
-#
-# TESTS
-#
-# FROM SOKOBAN INPUT FILES
-# sokoban = sb.Sokoban("test/input/sokoban/sokoban00.txt")
-# sokoban = sb.Sokoban("test/input/sokoban/sokoban01.txt")
-# sokoban.print()
-# boxes = get_reachable_boxes(sokoban.board, sokoban.agent_location)
-# pprint.pprint(boxes)
-
-# FROM TEXT LEVELS
-# np.set_printoptions(edgeitems=30, linewidth=100000,formatter=dict(float=lambda x: "%.3g" % x))
-# b = b.Board("test/input/levels/level0.txt")
-# b = b.Board("test/input/levels/level1.txt")
-# b = b.Board("test/input/levels/level2.txt")
-# b = b.Board("test/input/levels/level47.txt")
-# board = b.board
-# agent = b.agent
-# translation = {39: None}
-# print(str(board).translate(translation))
-# boxes = get_reachable_boxes(board, agent)
-# pprint.pprint(boxes)
-
