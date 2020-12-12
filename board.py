@@ -15,9 +15,9 @@ class Board:
 
             self.board = np.full((self.height, self.width), '', dtype=object)
 
-            for i in range(len(self._lines)):
-                line = self._lines[i]
-                for j, character in enumerate(line):
-                    self.board[i][j] = character
+            for row in range(len(self._lines)):
+                line = self._lines[row]
+                for col, character in enumerate(line):
+                    self.board[row][col] = character
                     if character == '@':
-                        self.agent = (i, j)
+                        self.agent = (row, col)

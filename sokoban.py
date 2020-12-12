@@ -68,29 +68,29 @@ class Sokoban:
     # Number of wall squares is the first number on the second line
     def wall_squares(self, line):
         for i in range(0, len(line), 2):
-            x = line[i]
-            y = line[i + 1]
-            self.board[x][y] = WALL
+            row = line[i]
+            col = line[i + 1]
+            self.board[row][col] = WALL
 
     def goals(self, line):
         for i in range(0, len(line), 2):
-            x = line[i]
-            y = line[i + 1]
-            self.board[x][y] = GOAL
+            row = line[i]
+            col = line[i + 1]
+            self.board[row][col] = GOAL
 
     def boxes(self, line):
         for i in range(0, len(line), 2):
-            x = line[i]
-            y = line[i + 1]
-            self.board[x][y] = BOX
-            self.box_locations += [(x,y)]
+            row = line[i]
+            col = line[i + 1]
+            self.board[row][col] = BOX
+            self.box_locations += [(row,col)]
 
     # Agent coordinates (x,y) are the first and second elements on the fifth line
     def agent(self, line):
-        x = line[0]
-        y = line[1]
-        self.board[x][y] = AGENT
-        self.agent_location = (x,y)
+        row = line[0]
+        col = line[1]
+        self.board[row][col] = AGENT
+        self.agent_location = (row,col)
 
 #
 # Box object contains location coordinates and available moves
@@ -104,8 +104,8 @@ class Box:
 # Agent contains location coordinates
 #
 class Agent:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.coordinates = (x, y)
+    def __init__(self, row, col):
+        self.row = row
+        self.col = col
+        self.coordinates = (row, col)
         self.moves = []

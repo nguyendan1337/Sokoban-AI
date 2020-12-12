@@ -16,10 +16,10 @@ import pprint
 
 # FROM TEXT LEVELS
 np.set_printoptions(edgeitems=30, linewidth=1000,formatter=dict(float=lambda x: "%.3g" % x))
-# b = b.Board("test/input/levels/level0.txt")
+b = b.Board("test/input/levels/level0.txt")
 # b = b.Board("test/input/levels/level1.txt")
 # b = b.Board("test/input/levels/level2.txt")
-b = b.Board("test/input/levels/level47.txt")
+# b = b.Board("test/input/levels/level47.txt")
 board = b.board
 agent = b.agent
 translation = {39: None}

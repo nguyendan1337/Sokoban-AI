@@ -16,8 +16,8 @@ RIGHT = "Right"
 def is_terminal_state(boxes, rewards):
 
     #if all boxes are in goals, terminal will remain true
-    #box_coordinates[0] = the box's x coordinate
-    #box_coordinates[1] = the box's y coordinate
+    #box_coordinates[0] = the box's row
+    #box_coordinates[1] = the box's column
     for box_coordinates in boxes:
         # if the reward for this box's location is -100, then it is in a corner terminal state
         if rewards[box_coordinates[0], box_coordinates[1]] == -100:
