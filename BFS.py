@@ -2,7 +2,6 @@ import sokoban as sb
 import numpy as np
 import queue as q
 import board as b
-import random
 import pprint
 
 # String constants for each component of the Sokoban puzzle
