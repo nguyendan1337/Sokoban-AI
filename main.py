@@ -1,6 +1,7 @@
 import BFS
 import Q
 from board import *
+from preprocess import *
 
 # Moves
 UP = "Up"
@@ -19,6 +20,7 @@ q_table = {}
 #################
 sokoban = Board("test/input/levels/level1.txt")
 sokoban.print()
+rewards = preprocess(sokoban)
 
 # define training parameters
 epsilon = 0.9  # the percentage of time when we should take the best action (instead of a random action)
