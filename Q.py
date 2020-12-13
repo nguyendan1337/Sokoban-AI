@@ -88,29 +88,29 @@ def get_next_action(boxes, epsilon, q_table):
     else:
         return box_move
 
-def update_q_table(q_table, rewards, updated_box, action, discount_factor, learning_rate):
+def update_q_table(q_table, rewards, new_box_position, action_taken, discount_factor, learning_rate):
     # receive the reward for moving to the new state, and calculate the temporal difference
-    # updated_box[0] = box's new row
-    # updated_box[1] = box's new column
-    reward = rewards[updated_box[0], updated_box[1]]
+    # new_box_position[0] = box's new row
+    # new_box_position[1] = box's new column
+    reward = rewards[new_box_position[0], new_box_position[1]]
 
     #get the values needed for updating q table
-    old_box = action[0]
-    move = action[1]
-    old_q_value = q_table[old_box][move]
+    old_box_position = action_taken[0]
+    move = action_taken[1]
+    old_q_value = q_table[old_box_position][move]
 
     #if updated box not in q table, add it to the q table
-    if updated_box not in q_table:
-        q_table[updated_box] = {
+    if new_box_position not in q_table:
+        q_table[new_box_position] = {
             UP: 0,
             DOWN: 0,
             LEFT: 0,
             RIGHT: 0
         }
 
-    temporal_difference = reward + (discount_factor * max(q_table[updated_box].values())) - old_q_value
+    temporal_difference = reward + (discount_factor * max(q_table[new_box_position].values())) - old_q_value
 
     # update the Q-value for the previous state and action pair
     new_q_value = old_q_value + (learning_rate * temporal_difference)
-    q_table[old_box][move] = new_q_value
+    q_table[old_box_position][move] = new_q_value
     return q_table

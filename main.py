@@ -49,10 +49,13 @@ for episode in range(r):
         #board_boxes
 
         #get the reward from the box's new location
-        #updated_box = (box_new_row, box_new_col)
+        # new_box_position = (box_new_row, box_new_col)
 
         #update Q values in Q Table
-        #q_table = Q.update_q_table(q_table, rewards, updated_box, action, discount_factor, learning_rate)
+        # q_table = Q.update_q_table(q_table, rewards, new_box_position, action, discount_factor, learning_rate)
 
         terminal = Q.is_terminal_state(board, board_boxes)
+
+        translation = {39: None}
+        print(str(board).translate(translation))
 
