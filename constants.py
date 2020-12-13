@@ -2,3 +2,4 @@ WALL = "#"
 AGENT = "@"
 GOAL = "."
 BOX = "$"
+

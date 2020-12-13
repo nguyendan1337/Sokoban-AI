@@ -21,7 +21,6 @@ class TestBoard(TestCase):
     def test_print_board(self):
         np.set_printoptions(edgeitems=30, linewidth=100000, formatter=dict(float=lambda x: "%.3g" % x))
         print(self.board.board)
-        print(self.board.corners)
 
     # Simply checks to make sure the board and its attributes are set
     def test_board_not_None(self):
@@ -62,3 +61,7 @@ class TestBoard(TestCase):
                                      "At coordinate [{i}, {j}]: board = {v}.  text file = {x}. \n{board}\n{text}".format(
                                          i=i, j=j, v=boardValueAtCoordinate, x=textFileCharacterAtCoordinate, board=arr,
                                          text=line))
+
+    # TODO: Add some meaningful tests for corner detection.
+    def test_corners(self):
+        print(self.board.corners)
