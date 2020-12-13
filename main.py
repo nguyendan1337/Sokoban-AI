@@ -1,13 +1,8 @@
-import BFS
-import Q
-from board import *
 from preprocess import *
+from board import *
+from BFS import *
+from Q import *
 
-# Moves
-UP = "Up"
-DOWN = "Down"
-LEFT = "Left"
-RIGHT = "Right"
 
 # dictionary of q values
 # state: box coordinates
@@ -18,9 +13,9 @@ q_table = {}
 #################
 # MAIN FUNCTION #
 #################
-sokoban = Board("test/input/levels/level1.txt")
-sokoban.print()
-rewards = preprocess(sokoban)
+game = Board("test/input/levels/level1.txt")
+game.print()
+rewards = preprocess(game)
 
 # define training parameters
 epsilon = 0.9  # the percentage of time when we should take the best action (instead of a random action)
@@ -32,26 +27,27 @@ r = 1
 for episode in range(r):
 
     #initial game state
-    agent = sokoban.agent
-    board = sokoban.board
-    boxes = sokoban.boxes
+    agent = game.agent
+    board = game.board
+    boxes = game.boxes
     terminal = False
 
     # continue moving boxes until we reach a terminal state
     while not terminal:
         # get a dictionary of reachable boxes, their available moves, and the path to those moves
-        reachable_boxes = BFS.get_reachable_boxes(board, agent)
+        reachable_boxes = get_reachable_boxes(board, agent)
 
         # choose which box and move to make
-        action = Q.get_next_action(reachable_boxes, epsilon, q_table)
+        action = get_next_action(reachable_boxes, epsilon, q_table)
 
         #perform the action
         #update agent and box locations
         #append path to history
-        #board_boxes
 
         #update Q values in Q Table
-        # q_table = Q.update_q_table(q_table, rewards)
+        q_table = update_q_table(q_table, rewards, new_box_position, action, discount_factor, learning_rate)
 
-        # terminal = Q.is_terminal_state(board, boxes)
+        terminal, status = is_terminal_state(board, boxes)
+
+    print(status)
 
