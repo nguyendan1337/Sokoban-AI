@@ -75,7 +75,6 @@ def get_next_action(boxes, epsilon, q_table):
             q_move[box] = max_move
 
         #get the box with the highest q value
-        print(q_max)
         box = max(q_max, key=q_max.get)
 
         #if the max q value is not 0, return the box and its move

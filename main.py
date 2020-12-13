@@ -23,9 +23,9 @@ q_table = {}
 #################
 # MAIN FUNCTION #
 #################
-sokoban = Board("test/input/levels/level1.txt")
-sokoban.print()
-rewards = preprocess(sokoban)
+game = Board("test/input/levels/level1.txt")
+game.print()
+rewards = preprocess(game)
 
 # define training parameters
 epsilon = 0.9  # the percentage of time when we should take the best action (instead of a random action)
@@ -37,9 +37,9 @@ r = 1
 for episode in range(r):
 
     #initial game state
-    agent = sokoban.agent
-    board = sokoban.board
-    boxes = sokoban.boxes
+    agent = game.agent
+    board = game.board
+    boxes = game.boxes
     terminal = False
 
     # continue moving boxes until we reach a terminal state
