@@ -1,15 +1,9 @@
-import Q
-import BFS
+from Q import *
+from BFS import *
 import numpy as np
 import board as b
 import sokoban as sb
 import pprint
-
-# Moves
-UP = "Up"
-DOWN = "Down"
-LEFT = "Left"
-RIGHT = "Right"
 
 #
 # TESTS
@@ -28,16 +22,14 @@ b = b.Board("test/input/levels/level1.txt")
 # b = b.Board("test/input/levels/level47.txt")
 board = b.board
 agent = b.agent
-# translation = {39: None}
-# print(str(board).translate(translation))
 b.print()
-boxes = BFS.get_reachable_boxes(board, agent)
+boxes = get_reachable_boxes(board, agent)
 pprint.pprint(boxes)
 
 #TEST GET NEXT ACTION
 q_table = {(5, 16): {'Up': 1, 'Down': 2, 'Left': 3, 'Right': 4}}
 # q_table = {}
-action = Q.get_next_action(boxes, .9, q_table)
+action = get_next_action(boxes, .9, q_table)
 print(action)
 
 #TEST UPDATE Q TABLE
@@ -55,5 +47,5 @@ if action[1] == RIGHT:
 rewards[updated_box[0], updated_box[1]] = 100
 # print(rewards)
 print(q_table)
-q_table = Q.update_q_table(q_table, rewards, updated_box, action, .9, .9)
+q_table = update_q_table(q_table, rewards, updated_box, action, .9, .9)
 print(q_table)

@@ -1,18 +1,8 @@
-import BFS
-import Q
-from board import *
 from preprocess import *
+from board import *
+from BFS import *
+from Q import *
 
-# Status
-DEAD = "Dead"
-ALIVE = "Alive"
-GOAL = "Goal"
-
-# Moves
-UP = "Up"
-DOWN = "Down"
-LEFT = "Left"
-RIGHT = "Right"
 
 # dictionary of q values
 # state: box coordinates
@@ -45,22 +35,19 @@ for episode in range(r):
     # continue moving boxes until we reach a terminal state
     while not terminal:
         # get a dictionary of reachable boxes, their available moves, and the path to those moves
-        reachable_boxes = BFS.get_reachable_boxes(board, agent)
+        reachable_boxes = get_reachable_boxes(board, agent)
 
         # choose which box and move to make
-        action = Q.get_next_action(reachable_boxes, epsilon, q_table)
+        action = get_next_action(reachable_boxes, epsilon, q_table)
 
         #perform the action
         #update agent and box locations
         #append path to history
 
         #update Q values in Q Table
-        # q_table = Q.update_q_table(q_table, rewards, new_box_position, action, discount_factor, learning_rate)
+        q_table = update_q_table(q_table, rewards, new_box_position, action, discount_factor, learning_rate)
 
-        # terminal, status = Q.is_terminal_state(board, boxes)
+        terminal, status = is_terminal_state(board, boxes)
 
-    # if status == DEAD:
-    #     print(DEAD)
-    # if status == GOAL:
-    #     print(GOAL)
+    print(status)
 

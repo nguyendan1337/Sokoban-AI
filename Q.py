@@ -1,16 +1,6 @@
 import random
 import numpy as np
-
-# Status
-DEAD = "Dead"
-ALIVE = "Alive"
-GOAL = "Goal"
-
-# Moves
-UP = "Up"
-DOWN = "Down"
-LEFT = "Left"
-RIGHT = "Right"
+from constants import *
 
 # determine if any boxes are terminal states
 def is_terminal_state(boxes, rewards):
