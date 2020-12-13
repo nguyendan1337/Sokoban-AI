@@ -2,6 +2,8 @@ from unittest import TestCase
 from parameterized import *
 from board import Board
 import numpy as np
+from preprocess import *
+from helper import *
 
 
 # The board.py file gives the "intuitive" height and width where h and w are at least 1
@@ -40,14 +42,14 @@ class TestBoard(TestCase):
     # Tests that the individual characters in the board are translated correctly
     def test_translation(self):
         _characters = {
-            ' ': ' ',  # free space
-            '@': "@",  # player
-            '#': '#',  # wall
-            '$': '$',  # box
-            '.': '.',  # goal
-            '_': '_'  # corner
+            ' ': SPACE,  # free space
+            '@': AGENT,  # player
+            '#': WALL,  # wall
+            '$': BOX,  # box
+            '.': GOAL  # goal
         }
-        arr = self.board.__getattribute__('board')
+        arr = self.board.board
+
         with open(self.file) as f:
             read_data = f.read()
             self._lines = read_data.split("\n")
@@ -55,13 +57,30 @@ class TestBoard(TestCase):
             for i in range(self.num_rows):
                 line = self._lines[i]
                 for j, string in enumerate(line):
-                    textFileCharacterAtCoordinate = line[j]
-                    boardValueAtCoordinate = arr[i, j]
+                    text_file_character_at_coordinate = line[j]
+                    board_value_at_coordinate = arr[i, j]
                     self.assertEqual(arr[i, j], _characters[line[j]],
                                      "At coordinate [{i}, {j}]: board = {v}.  text file = {x}. \n{board}\n{text}".format(
-                                         i=i, j=j, v=boardValueAtCoordinate, x=textFileCharacterAtCoordinate, board=arr,
+                                         i=i, j=j, v=board_value_at_coordinate, x=text_file_character_at_coordinate,
+                                         board=arr,
                                          text=line))
 
     # TODO: Add some meaningful tests for corner detection.
     def test_corners(self):
-        print(self.board.corners)
+        print("corners = ", self.board.corners)
+
+    # TODO: Add some meaningful tests for goal detection.
+    def test_goals(self):
+        print("goals = ", self.board.goals)
+
+    def test_preprocess(self):
+        rewards = preprocess(self.board)
+
+        for i in range(self.num_rows):
+            for j in range(self.num_cols):
+                if (i, j) in self.board.goals:
+                    self.assertEqual(GOAL_REWARD, rewards[i][j])
+                elif (i, j) in self.board.corners:
+                    self.assertEqual(CORNER_REWARD, rewards[i][j])
+                else:
+                    self.assertEqual(DEFAULT_REWARD, rewards[i][j])
