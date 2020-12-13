@@ -18,11 +18,10 @@ RIGHT = "Right"
 # sokoban = sb.Sokoban("test/input/sokoban/sokoban00.txt")
 sokoban = sb.Sokoban("test/input/sokoban/sokoban01.txt")
 sokoban.print()
-boxes = BFS.get_reachable_boxes(sokoban.board, sokoban.agent_location)
+boxes = BFS.get_reachable_boxes(sokoban.board, sokoban.agent)
 pprint.pprint(boxes)
 
 # FROM TEXT LEVELS
-np.set_printoptions(edgeitems=30, linewidth=1000,formatter=dict(float=lambda x: "%.3g" % x))
 # b = b.Board("test/input/levels/level0.txt")
 # b = b.Board("test/input/levels/level1.txt")
 # b = b.Board("test/input/levels/level2.txt")
