@@ -1,6 +1,6 @@
-import sokoban as sb
 import BFS
 import Q
+from board import *
 
 # Moves
 UP = "Up"
@@ -17,7 +17,7 @@ q_table = {}
 #################
 # MAIN FUNCTION #
 #################
-sokoban = sb.Sokoban("test/input/sokoban/sokoban01.txt")
+sokoban = Board("test/input/levels/level1.txt")
 sokoban.print()
 
 # define training parameters
@@ -30,9 +30,9 @@ r = 1
 for episode in range(r):
 
     #initial game state
-    agent = sokoban.agent_location
+    agent = sokoban.agent
     board = sokoban.board
-    board_boxes = sokoban.box_locations
+    boxes = sokoban.boxes
     terminal = False
 
     # continue moving boxes until we reach a terminal state
@@ -41,7 +41,7 @@ for episode in range(r):
         reachable_boxes = BFS.get_reachable_boxes(board, agent)
 
         # choose which box and move to make
-        action = Q.get_next_action(reachable_boxes, q_table, epsilon)
+        action = Q.get_next_action(reachable_boxes, epsilon, q_table)
 
         #perform the action
         #update agent and box locations
@@ -51,5 +51,5 @@ for episode in range(r):
         #update Q values in Q Table
         # q_table = Q.update_q_table(q_table, rewards)
 
-        terminal = Q.is_terminal_state(board, board_boxes)
+        # terminal = Q.is_terminal_state(board, boxes)
 

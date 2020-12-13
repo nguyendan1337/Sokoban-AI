@@ -13,8 +13,9 @@ class Board:
 
             self.num_cols = max(list(map(lambda x: len(self._lines[x]), range(len(self._lines)))))
             self.num_rows = len(self._lines)
-            self.board = np.full((self.num_rows, self.num_cols), ' ', dtype=object)
+            self.board = np.full((self.num_rows, self.num_cols), SPACE, dtype=object)
             self.goals = []
+            self.boxes = []
 
             for row in range(self.num_rows):
                 line = self._lines[row]
@@ -24,6 +25,8 @@ class Board:
                         self.agent = (row, col)
                     elif character is GOAL:
                         self.goals.append((row, col))
+                    elif character is BOX:
+                        self.boxes.append((row, col))
 
             self.corners = self.init_corners()
 
@@ -37,3 +40,9 @@ class Board:
                     corners.append((row, col))
 
         return corners
+
+    # Pretty print in Dan-sanctioned format
+    def print(self):
+        translation = {39: None}
+        np.set_printoptions(edgeitems=30, linewidth=100000, formatter=dict(float=lambda x: "%.3g" % x))
+        print(str(self.board).translate(translation))
