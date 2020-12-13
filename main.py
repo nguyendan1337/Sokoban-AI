@@ -2,6 +2,11 @@ import sokoban as sb
 import BFS
 import Q
 
+# Status
+DEAD = "Dead"
+ALIVE = "Alive"
+GOAL = "Goal"
+
 # Moves
 UP = "Up"
 DOWN = "Down"
@@ -54,8 +59,13 @@ for episode in range(r):
         #update Q values in Q Table
         # q_table = Q.update_q_table(q_table, rewards, new_box_position, action, discount_factor, learning_rate)
 
-        terminal = Q.is_terminal_state(board, board_boxes)
+        terminal, status = Q.is_terminal_state(board, board_boxes)
 
         translation = {39: None}
         print(str(board).translate(translation))
+
+    if status == DEAD:
+        print(DEAD)
+    if status == GOAL:
+        print(GOAL)
 

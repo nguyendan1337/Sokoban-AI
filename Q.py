@@ -1,7 +1,7 @@
 import random
 import numpy as np
 
-# States
+# Status
 DEAD = "Dead"
 ALIVE = "Alive"
 GOAL = "Goal"
