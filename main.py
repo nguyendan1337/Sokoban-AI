@@ -54,10 +54,6 @@ for episode in range(r):
         #update agent and box locations
         #append path to history
 
-
-        #get the reward from the box's new location
-        # new_box_position = (box_new_row, box_new_col)
-
         #update Q values in Q Table
         # q_table = Q.update_q_table(q_table, rewards, new_box_position, action, discount_factor, learning_rate)
 
