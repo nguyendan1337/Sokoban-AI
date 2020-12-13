@@ -4,6 +4,12 @@ import numpy as np
 import board as b
 import pprint
 
+# Moves
+UP = "Up"
+DOWN = "Down"
+LEFT = "Left"
+RIGHT = "Right"
+
 #
 # TESTS
 #
@@ -32,3 +38,21 @@ q_table = {(5, 16): {'Up': 1, 'Down': 2, 'Left': 3, 'Right': 4}}
 # q_table = {}
 action = Q.get_next_action(boxes, .9, q_table)
 print(action)
+
+#TEST UPDATE Q TABLE
+rewards = np.zeros((b.height, b.width))
+rewards[action[0][0], action[0][1]] = -1
+updated_box = action[0]
+if action[1] == UP:
+    updated_box = (updated_box[0]-1, updated_box[1])
+if action[1] == DOWN:
+    updated_box = (updated_box[0]+1, updated_box[1])
+if action[1] == LEFT:
+    updated_box = (updated_box[0], updated_box[1]-1)
+if action[1] == RIGHT:
+    updated_box = (updated_box[0]-1, updated_box[1]+1)
+rewards[updated_box[0], updated_box[1]] = 100
+print(rewards)
+print(q_table)
+q_table = Q.update_q_table(q_table, rewards, updated_box, action, .9, .9)
+print(q_table)

@@ -48,8 +48,11 @@ for episode in range(r):
         #append path to history
         #board_boxes
 
+        #get the reward from the box's new location
+        #updated_box = (box_new_row, box_new_col)
+
         #update Q values in Q Table
-        # q_table = Q.update_q_table(q_table, rewards)
+        #q_table = Q.update_q_table(q_table, rewards, updated_box, action, discount_factor, learning_rate)
 
         terminal = Q.is_terminal_state(board, board_boxes)
 
