@@ -14,5 +14,7 @@ def preprocess(sokoban):
                 rewards[row][col] = GOAL_REWARD
             elif (row, col) in sokoban.corners:
                 rewards[row][col] = CORNER_REWARD
+            elif sokoban.board[row][col] is WALL:
+                rewards[row][col] = WALL_REWARD
 
     return rewards

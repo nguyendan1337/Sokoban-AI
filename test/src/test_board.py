@@ -21,8 +21,9 @@ class TestBoard(TestCase):
         self.num_cols = self.dimensions[1]
 
     def test_print_board(self):
+        translation = {39: None}
         np.set_printoptions(edgeitems=30, linewidth=100000, formatter=dict(float=lambda x: "%.3g" % x))
-        print(self.board.board)
+        print(str(self.board.board).translate(translation))
 
     # Simply checks to make sure the board and its attributes are set
     def test_board_not_None(self):
@@ -75,6 +76,7 @@ class TestBoard(TestCase):
 
     def test_preprocess(self):
         rewards = preprocess(self.board)
+        print(rewards)
 
         for i in range(self.num_rows):
             for j in range(self.num_cols):
@@ -82,5 +84,7 @@ class TestBoard(TestCase):
                     self.assertEqual(GOAL_REWARD, rewards[i][j])
                 elif (i, j) in self.board.corners:
                     self.assertEqual(CORNER_REWARD, rewards[i][j])
+                elif self.board.board[i][j] is WALL:
+                    self.assertEqual(WALL_REWARD, rewards[i][j])
                 else:
                     self.assertEqual(DEFAULT_REWARD, rewards[i][j])
