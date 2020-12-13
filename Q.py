@@ -6,14 +6,14 @@ from constants import *
 def is_terminal_state(boxes, rewards):
 
     #if all boxes are in goals, terminal will remain true
-    #box_coordinates[0] = the box's row
-    #box_coordinates[1] = the box's column
     for box_coordinates in boxes:
+
         # if the reward for this box's location is -100, then it is in a corner terminal state
-        if rewards[box_coordinates[0], box_coordinates[1]] == -100:
+        if rewards[box_coordinates] == -100:
             return True, DEAD
+
         # if the box is not at a goal, then it is not in a terminal state
-        if rewards[box_coordinates[0], box_coordinates[1]] == -1:
+        if rewards[box_coordinates] == -1:
             return False, ALIVE
 
     #also check history
@@ -53,7 +53,6 @@ def get_next_action(boxes, epsilon, q_table):
     # then of the reachable boxes, choose box with the move with the highest q value
     # else return the random box and move
     r = np.random.random()
-    print(r)
     if r < epsilon:
         #for each box
         for box in q_values.keys():
@@ -79,9 +78,7 @@ def get_next_action(boxes, epsilon, q_table):
 
 def update_q_table(q_table, rewards, new_box_position, action_taken, discount_factor, learning_rate):
     # receive the reward for moving to the new state, and calculate the temporal difference
-    # new_box_position[0] = box's new row
-    # new_box_position[1] = box's new column
-    reward = rewards[new_box_position[0], new_box_position[1]]
+    reward = rewards[new_box_position]
 
     #get the values needed for updating q table
     old_box_position = action_taken[0]

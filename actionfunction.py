@@ -1,4 +1,9 @@
-def actionf(action, reachbox, board_boxes, explored):
+from constants import *
+
+def perform_action(action, reachable_boxes, boxes, explored, board, agent):
+    # update previous agent location on board
+    board[agent] = SPACE
+
     new_box_position=0
     agent=action[0] #return
     oldbox_p=action[0]
@@ -13,11 +18,14 @@ def actionf(action, reachbox, board_boxes, explored):
     if move=="Right":
         new_box_position = (oldbox_p[0], oldbox_p[1]+1)
 
-    board_boxes=[new_box_position if box==action[0] else box for box in board_boxes] #return
+    boxes=[new_box_position if box == action[0] else box for box in boxes] #return
 
-    explored += reachbox[agent][move] #return
+    explored += reachable_boxes[agent][move] #return
 
-    return agent, board_boxes, explored,new_box_position
+    board[agent] = AGENT
+    board[new_box_position] = BOX
+
+    return agent, boxes, explored, new_box_position, board
 
 
 
