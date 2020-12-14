@@ -1,16 +1,5 @@
 import queue as q
-
-# String constants for each component of the Sokoban puzzle
-WALL = "#"
-AGENT = "@"
-GOAL = "."
-BOX = "$"
-
-# Moves
-UP = "Up"
-DOWN = "Down"
-LEFT = "Left"
-RIGHT = "Right"
+from constants import *
 
 #
 # getReachableBoxes()
@@ -29,9 +18,9 @@ def get_reachable_boxes(board, agent):
         node, path = frontier.get()                                 #pop from frontier
         neighbors, boxes = expand(board, node, boxes, path)         #expand the node, get its neighbor children and boxes
         for neighbor in neighbors:                                  #for each neighbor
-            if neighbor not in visited:                             #if neighbor has not been visited
-                visited.add(neighbor)                               #add neighbor to visited
-                frontier.put((neighbor, path + [neighbor]))         #put neighbor onto frontier as well as path to neighbor
+            if neighbor[1] not in visited:                             #if neighbor has not been visited
+                visited.add(neighbor[1])                               #add neighbor to visited
+                frontier.put((neighbor[1], path + [neighbor]))         #put neighbor onto frontier as well as path to neighbor
 
     return boxes
 
@@ -50,12 +39,12 @@ def expand(board, node, boxes, path):
                     and board[node[0] - 2][node[1]] != BOX:                         #if you can push the box UP
                 if (node[0] - 1, node[1]) in boxes:                             #if box exists in list of boxes
                     boxes[(node[0] - 1, node[1])]\
-                        .update({UP: path + [(node[0]-1, node[1])]})                #add UP and path to box's moves
+                        .update({UP: path + [[UP, (node[0]-1, node[1])]]})                #add UP and path to box's moves
                 else:
                     boxes[(node[0] - 1, node[1])] \
-                        = {UP: path + [(node[0]-1, node[1])]}                       #else add box to boxes
+                        = {UP: path + [[UP, [(node[0]-1, node[1])]]]}                       #else add box to boxes
         else:
-            neighbors.append((node[0] - 1, node[1]))                     #else add UP to neighbors
+            neighbors.append([UP, (node[0] - 1, node[1])])                     #else add UP to neighbors
 
     ##DOWN##
     if board[node[0] + 1][node[1]] != WALL:                         #if DOWN is not a wall
@@ -64,12 +53,12 @@ def expand(board, node, boxes, path):
                     and board[node[0] + 2][node[1]] != BOX:                         #if you can push the box DOWN
                 if (node[0] + 1, node[1]) in boxes:                             # if box exists in list of boxes
                     boxes[(node[0] + 1, node[1])]\
-                        .update({DOWN: path + [(node[0]+1, node[1])]})              # add DOWN and path to box's moves
+                        .update({DOWN: path + [[DOWN, (node[0]+1, node[1])]]})              # add DOWN and path to box's moves
                 else:
                     boxes[(node[0] + 1, node[1])] \
-                        = {DOWN: path + [(node[0]+1, node[1])]}                     # else add box to boxes
+                        = {DOWN: path + [[DOWN, (node[0]+1, node[1])]]}                     # else add box to boxes
         else:
-            neighbors.append((node[0] + 1, node[1]))                    #else add DOWN to neighbors
+            neighbors.append([DOWN, (node[0] + 1, node[1])])                    #else add DOWN to neighbors
 
     ##LEFT##
     if board[node[0]][node[1] - 1] != WALL:                         #if LEFT is not a wall
@@ -78,12 +67,12 @@ def expand(board, node, boxes, path):
                     and board[node[0]][node[1] - 2] != BOX:                         #if you can push the box LEFT
                 if (node[0], node[1] - 1) in boxes:                             # if box exists in list of boxes
                     boxes[(node[0], node[1] - 1)]\
-                        .update({LEFT: path + [(node[0], node[1]-1)]})              # add LEFT and path to box's moves
+                        .update({LEFT: path + [[LEFT, (node[0], node[1]-1)]]})              # add LEFT and path to box's moves
                 else:
                     boxes[(node[0], node[1] - 1)] \
-                        = {LEFT: path + [(node[0], node[1]-1)]}                     # else add box to boxes
+                        = {LEFT: path + [[LEFT, (node[0], node[1]-1)]]}                     # else add box to boxes
         else:
-            neighbors.append((node[0], node[1] - 1))                    #else add LEFT to neighbors
+            neighbors.append([LEFT, (node[0], node[1] - 1)])                    #else add LEFT to neighbors
 
     ##RIGHT##
     if board[node[0]][node[1] + 1] != WALL:                         #if RIGHT is not a wall
@@ -92,11 +81,11 @@ def expand(board, node, boxes, path):
                     and board[node[0]][node[1] + 2] != WALL:                         #if you can push the box RIGHT
                 if (node[0], node[1] + 1) in boxes:                             # if box exists in list of boxes
                     boxes[(node[0], node[1] + 1)]\
-                        .update({RIGHT: path + [(node[0], node[1]+1)]})             # add RIGHT and path to box's moves
+                        .update({RIGHT: path + [[RIGHT, (node[0], node[1]+1)]]})             # add RIGHT and path to box's moves
                 else:
                     boxes[(node[0], node[1] + 1)] \
-                        = {RIGHT: path + [(node[0], node[1]+1)]}                    # else add box to boxes
+                        = {RIGHT: path + [[RIGHT, (node[0], node[1]+1)]]}                    # else add box to boxes
         else:
-            neighbors.append((node[0], node[1] + 1))                    #else add RIGHT to neighbors
+            neighbors.append([RIGHT, (node[0], node[1] + 1)])                    #else add RIGHT to neighbors
 
     return neighbors, boxes
