@@ -4,6 +4,7 @@ from constants import *
 
 # determine if any boxes are terminal states
 def is_terminal_state(boxes, rewards):
+    terminal = True
 
     #if all boxes are in goals, terminal will remain true
     for box_coordinates in boxes:
@@ -14,13 +15,15 @@ def is_terminal_state(boxes, rewards):
 
         # if the box is not at a goal, then it is not in a terminal state
         if rewards[box_coordinates] == -1:
-            return False, ALIVE
+            terminal = False
 
     #also check history
     #if we are in a repeated state, then we are in a terminal state, return TRUE
     #finish this last
-
-    return True, GOAL
+    if terminal == False:
+        return terminal, ALIVE
+    else:
+        return terminal, GOAL
 
 # epsilon greedy algorithm that will choose which box and move to make
 def get_next_action(boxes, epsilon, q_table):

@@ -78,7 +78,7 @@ def expand(board, node, boxes, path):
     if board[node[0]][node[1] + 1] != WALL:                         #if RIGHT is not a wall
         if board[node[0]][node[1] + 1] == BOX:                          #if RIGHT is a box
             if board[node[0]][node[1] + 2] != WALL\
-                    and board[node[0]][node[1] + 2] != WALL:                         #if you can push the box RIGHT
+                    and board[node[0]][node[1] + 2] != BOX:                         #if you can push the box RIGHT
                 if (node[0], node[1] + 1) in boxes:                             # if box exists in list of boxes
                     boxes[(node[0], node[1] + 1)]\
                         .update({RIGHT: path + [[RIGHT, (node[0], node[1]+1)]]})             # add RIGHT and path to box's moves

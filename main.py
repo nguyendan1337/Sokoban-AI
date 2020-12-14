@@ -3,6 +3,8 @@ from board import *
 from BFS import *
 from Q import *
 from actionfunction import perform_action
+import copy
+import pprint
 
 # dictionary of q values
 # state: box coordinates
@@ -14,7 +16,6 @@ q_table = {}
 # MAIN FUNCTION #
 #################
 game_original = Board("test/input/levels/level1.txt")
-game_original.print()
 rewards = preprocess(game_original)
 
 # define training parameters
@@ -22,23 +23,30 @@ epsilon = 0.9  # the percentage of time when we should take the best action (ins
 discount_factor = 0.9  # discount factor for future rewards
 learning_rate = 0.9  # the rate at which the AI agent should learn
 explored = []
-r = 1
+r = 5
 
 # run through 1000 training episodes
 for episode in range(r):
 
     #initial game state
-    game = game_original
+    game = copy.deepcopy(game_original)
     agent = game.agent
     board = game.board
     boxes = game.boxes
     terminal = False
+    print("NEW EPISODE")
+    game.print()
 
     # continue moving boxes until we reach a terminal state
     while not terminal:
 
         # get a dictionary of reachable boxes, their available moves, and the path to those moves
         reachable_boxes = get_reachable_boxes(board, agent)
+        if not reachable_boxes:
+            terminal = True
+            game.print()
+            print("No reachable boxes!")
+            break
 
         # choose which box and move to make
         action = get_next_action(reachable_boxes, epsilon, q_table)
@@ -58,7 +66,7 @@ for episode in range(r):
         terminal, status = is_terminal_state(boxes, rewards)
         print(status)
 
-    #print the path the agent took
-    print(explored)
+    #print the path the agent took, print the q table
+    print("EPISODE OVER")
 
 
