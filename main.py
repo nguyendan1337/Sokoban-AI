@@ -57,6 +57,7 @@ for episode in range(r):
         #check if in terminal state
         terminal, status = is_terminal_state(boxes, rewards)
         print(status)
-        # print(explored)
+
+    print(explored)
 
 
