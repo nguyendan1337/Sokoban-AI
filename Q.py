@@ -11,7 +11,7 @@ def is_terminal_state(boxes, rewards):
 
         # if the reward for this box's location is -100, then it is in a corner terminal state
         if rewards[box_coordinates] == -100:
-            return True, DEAD
+            return True, DEAD_STATUS
 
         # if the box is not at a goal, then it is not in a terminal state
         if rewards[box_coordinates] == -1:
@@ -21,9 +21,9 @@ def is_terminal_state(boxes, rewards):
     #if we are in a repeated state, then we are in a terminal state, return TRUE
     #finish this last
     if terminal == False:
-        return terminal, ALIVE
+        return terminal, ALIVE_STATUS
     else:
-        return terminal, GOAL
+        return terminal, GOAL_STATUS
 
 # epsilon greedy algorithm that will choose which box and move to make
 def get_next_action(boxes, epsilon, q_table):

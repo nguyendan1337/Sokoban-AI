@@ -10,9 +10,9 @@ GOAL_REWARD = 100
 WALL_REWARD = -50
 
 # Status
-DEAD = "Dead"
-ALIVE = "Alive"
-GOAL = "Goal"
+DEAD_STATUS = "Dead"
+ALIVE_STATUS = "Alive"
+GOAL_STATUS = "Goal"
 
 # Moves
 UP = "Up"
