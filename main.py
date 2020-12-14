@@ -58,6 +58,7 @@ for episode in range(r):
         terminal, status = is_terminal_state(boxes, rewards)
         print(status)
 
+    #print the path the agent took
     print(explored)
 
 
