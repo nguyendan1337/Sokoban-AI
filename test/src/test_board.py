@@ -11,7 +11,8 @@ from helper import *
     ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level0.txt", (3, 14)),
     ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level1.txt", (11, 19)),
     ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level2.txt", (10, 14)),
-    ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level47.txt", (17, 31))
+    ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level47.txt", (17, 31)),
+    ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/original/level3", (10, 17))
 ])
 class TestBoard(TestCase):
 
@@ -19,6 +20,12 @@ class TestBoard(TestCase):
         self.board = Board(self.file)
         self.num_rows = self.dimensions[0]
         self.num_cols = self.dimensions[1]
+
+    # Tests to make sure the levelsX.txt board we pulled from the internet is actually configured correctly
+    def test_is_valid_configuration(self):
+        self.assertIsNotNone(self.board.goals)
+        self.assertIsNotNone(self.board.boxes)
+        self.assertEqual(len(self.board.goals), len(self.board.boxes))
 
     def test_print_board(self):
         translation = {39: None}
