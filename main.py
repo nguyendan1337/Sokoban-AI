@@ -1,21 +1,19 @@
 from preprocess import *
-from board import *
 from BFS import *
 from Q import *
 from actionfunction import perform_action
 import copy
-import pprint
+from sokoban import Sokoban
 
 # dictionary of q values
 # state: box coordinates
 # actions: UP, DOWN, LEFT, RIGHT
 q_table = {}
 
-
 #################
 # MAIN FUNCTION #
 #################
-game_original = Board("test/input/levels/level1.txt")
+game_original = Sokoban().build("test/input/levels/level0.txt", mode="visual")
 rewards = preprocess(game_original)
 
 # define training parameters
@@ -28,7 +26,7 @@ r = 5
 # run through 1000 training episodes
 for episode in range(r):
 
-    #initial game state
+    # initial game state
     game = copy.deepcopy(game_original)
     agent = game.agent
     board = game.board
@@ -52,21 +50,18 @@ for episode in range(r):
         action = get_next_action(reachable_boxes, epsilon, q_table)
 
         # perform the action, which updates box positions, agent position, explored path, board
-        agent, boxes, explored, new_box_position, board = \
-            perform_action(action, reachable_boxes, boxes, explored, board, agent)
+        agent, boxes, explored, new_box_position, board = perform_action(action, reachable_boxes, boxes, explored, board, agent)
 
-        #show move taken
+        # show move taken
         game.board = board
         game.print()
 
-        #update Q values in Q Table
+        # update Q values in Q Table
         q_table = update_q_table(q_table, rewards, new_box_position, action, discount_factor, learning_rate)
 
-        #check if in terminal state
+        # check if in terminal state
         terminal, status = is_terminal_state(boxes, rewards)
         print(status)
 
-    #print the path the agent took, print the q table
+    # print the path the agent took, print the q table
     print("EPISODE OVER")
-
-

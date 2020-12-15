@@ -3,6 +3,7 @@ AGENT = "@"
 GOAL = "."
 BOX = "$"
 SPACE = ' '
+BOX_ON_GOAL = "*"
 
 DEFAULT_REWARD = -1
 CORNER_REWARD = -100
@@ -19,3 +20,10 @@ UP = "Up"
 DOWN = "Down"
 LEFT = "Left"
 RIGHT = "Right"
+
+# Constants for the line numbers in the input and what data they represent
+BOARD_DIMENSIONS_LINE = 0
+WALL_SQUARES_LINE = 1
+BOXES_LINE = 2
+GOALS_LINE = 3
+AGENT_LINE = 4

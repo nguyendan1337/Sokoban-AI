@@ -1,12 +1,11 @@
 from unittest import TestCase
 from parameterized import *
-from board import Board
-import numpy as np
+from sokoban import Sokoban
 from preprocess import *
 from helper import *
 
 
-# The board.py file gives the "intuitive" height and width where h and w are at least 1
+# The visual.py file gives the "intuitive" height and width where h and w are at least 1
 @parameterized_class(('file', 'dimensions'), [
     ("../input/levels/level0.txt", (3, 14)),
     ("../input/levels/level1.txt", (11, 19)),
@@ -27,7 +26,7 @@ from helper import *
 class TestBoard(TestCase):
 
     def setUp(self):
-        self.board = Board(self.file)
+        self.board = Sokoban().build(self.file, mode="visual")
         self.num_rows = self.dimensions[0]
         self.num_cols = self.dimensions[1]
 
