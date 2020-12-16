@@ -13,7 +13,7 @@ q_table = {}
 #################
 # MAIN FUNCTION #
 #################
-game_original = Sokoban().build("test/input/levels/level0.txt", mode="visual")
+game_original = Sokoban().build("test/input/kask_input/sokoban08.txt", mode="kask")
 rewards = preprocess(game_original)
 
 # define training parameters
@@ -33,7 +33,7 @@ for episode in range(r):
     boxes = game.boxes
     terminal = False
     print("NEW EPISODE")
-    game.print()
+    game.pprint()
 
     # continue moving boxes until we reach a terminal state
     while not terminal:
@@ -42,7 +42,7 @@ for episode in range(r):
         reachable_boxes = get_reachable_boxes(board, agent)
         if not reachable_boxes:
             terminal = True
-            game.print()
+            game.pprint()
             print("No reachable boxes!")
             break
 
@@ -54,7 +54,7 @@ for episode in range(r):
 
         # show move taken
         game.board = board
-        game.print()
+        game.pprint()
 
         # update Q values in Q Table
         q_table = update_q_table(q_table, rewards, new_box_position, action, discount_factor, learning_rate)

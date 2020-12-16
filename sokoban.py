@@ -5,6 +5,19 @@ import numpy as np
 from helper import *
 
 
+class Color:
+    PURPLE = '\033[95m'
+    CYAN = '\033[96m'
+    DARKCYAN = '\033[36m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    END = '\033[0m'
+
+
 #
 # Factory pattern, given a path to file and a specified mode, will use proper board initializing protocols via the child class
 #
@@ -26,11 +39,29 @@ class Sokoban:
         if mode == "kask":
             return Kask(path_to_file)
 
-    # Pretty print in Dan-sanctioned format
+    # Print no colors in Dan-sanctioned format
     def print(self):
         translation = {39: None}
         np.set_printoptions(edgeitems=30, linewidth=100000, formatter=dict(float=lambda x: "%.3g" % x))
         print(str(self.board).translate(translation))
+
+    # Print with colors in Dan-sanctioned format
+    def pprint(self):
+        for row in range(self.num_rows):
+            for col in range(self.num_cols):
+                if self.board[row][col] is AGENT:
+                    print(Color.PURPLE + AGENT + Color.END, end=' ')
+                elif self.board[row][col] is BOX_ON_GOAL:
+                    print(Color.GREEN + BOX_ON_GOAL + Color.END, end=' ')
+                elif self.board[row][col] is BOX:
+                    print(Color.YELLOW + BOX + Color.END, end=' ')
+                elif self.board[row][col] is GOAL:
+                    print(Color.CYAN + GOAL + Color.END, end=' ')
+                elif self.board[row][col] is WALL:
+                    print(Color.BOLD + WALL + Color.END, end=' ')
+                else:
+                    print(self.board[row][col], end=' ')
+            print()
 
 
 #
