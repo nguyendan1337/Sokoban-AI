@@ -1,111 +1,163 @@
+from pathlib import Path
+
 import numpy as np
 
-# String constants for each component of the Sokoban puzzle
-WALL = "#"
-AGENT = "@"
-GOAL = "."
-BOX = "$"
-
-# Constants for the line numbers in the input and what data they represent
-BOARD_DIMENSIONS_LINE = 0
-WALL_SQUARES_LINE = 1
-BOXES_LINE = 2
-GOALS_LINE = 3
-AGENT_LINE = 4
+from helper import *
 
 
 #
-# Processes the input file and initializes the corresponding components of the Sokoban board.
+# Factory pattern, given a path to file and a specified mode, will use proper board initializing protocols via the child class
 #
 class Sokoban:
 
-    box_locations = []
-    agent_location = None
+    def __init__(self):
+        # Member variables, initialized in child classes
+        self.num_cols = 0
+        self.num_rows = 0
+        self.board = None
+        self.agent = None
+        self.goals = []
+        self.boxes = []
+        self.corners = []
+
+    def build(self, path_to_file, mode):
+        if mode == "visual":
+            return Visual(path_to_file)
+        if mode == "kask":
+            return Kask(path_to_file)
+
+    # Pretty print in Dan-sanctioned format
+    def print(self):
+        translation = {39: None}
+        np.set_printoptions(edgeitems=30, linewidth=100000, formatter=dict(float=lambda x: "%.3g" % x))
+        print(str(self.board).translate(translation))
+
+
+#
+# Processes the Kask-format input file and initializes the corresponding components of the Sokoban board.
+#
+class Kask(Sokoban):
 
     # Initialization of the board requires the path to the sokoban__.txt file
+    # Mode can either be visual or kask.
     def __init__(self, path_to_file):
 
+        file = open(path_to_file)
+        file_name = file.name.split("/")[-1].split(".")[0]
+
         # Each line of the file is an element in the list
-        file_contents = open(path_to_file).readlines()
+        file_contents = file.readlines()
         lines = list(map(lambda x: x.replace('\n', '').split(' '), file_contents))
 
-        # List is converted to numpy array of integers for ease of data manipulation
+        # List is converted to numpy array of integers for ease of extracting data
         data = np.array([np.array(x, dtype=np.int8) for x in lines], dtype=object)
 
-        # Initialize the 2D string list used to represent the board
-        self.dimensions(data[BOARD_DIMENSIONS_LINE])
-
-        # Get the constants from the file
-        self.n_wall_squares = data[WALL_SQUARES_LINE][0]
-        self.n_boxes = data[BOXES_LINE][0]
-        self.n_goals = data[GOALS_LINE][0]
+        # Member variables
+        self.num_cols = data[BOARD_DIMENSIONS_LINE][0]
+        self.num_rows = data[BOARD_DIMENSIONS_LINE][1]
+        self.board = np.full((self.num_rows, self.num_cols), SPACE, dtype=object)
+        self.agent = ()
+        self.goals = []
+        self.boxes = []
+        self.corners = []
 
         # Decrement each element by one once constants have been extracted for proper array indexing
         data = data - 1
 
         # Get the coordinates of the walls, boxes, goals, and agent and set appropriately in the 2D string list
-        self.wall_squares(data[WALL_SQUARES_LINE][1:])
-        self.boxes(data[BOXES_LINE][1:])
-        self.goals(data[GOALS_LINE][1:])
-        self.agent(data[AGENT_LINE])
+        self.init_wall_squares(data[WALL_SQUARES_LINE][1:])
+        self.init_goals(data[GOALS_LINE][1:])
+        self.init_boxes(data[BOXES_LINE][1:])
+        self.init_agent(data[AGENT_LINE])
 
-    # Prints the board in the same format as Kask
-    def print(self):
-        for x in self.board:
-            line = ''
-            for y in x:
-                line += y
-            print(line)
-
-    # Init the board based on the dimensions (x,y)
-    def dimensions(self, line):
-        self.height = line[1]
-        self.length = line[0]
-
-        # Python 2D List of Strings
-        self.board = [[' ' for x in range(self.length)] for y in range(self.height)]
+        file.close()
 
     # Number of wall squares is the first number on the second line
-    def wall_squares(self, line):
+    def init_wall_squares(self, line):
         for i in range(0, len(line), 2):
             row = line[i]
             col = line[i + 1]
             self.board[row][col] = WALL
 
-    def goals(self, line):
+    def init_goals(self, line):
         for i in range(0, len(line), 2):
             row = line[i]
             col = line[i + 1]
             self.board[row][col] = GOAL
+            self.goals.append((row, col))
 
-    def boxes(self, line):
+    def init_boxes(self, line):
         for i in range(0, len(line), 2):
             row = line[i]
             col = line[i + 1]
-            self.board[row][col] = BOX
-            self.box_locations += [(row,col)]
+            if self.board[row][col] is GOAL:
+                self.board[row][col] = BOX_ON_GOAL
+            else:
+                self.board[row][col] = BOX
+            self.boxes.append((row, col))
 
     # Agent coordinates (x,y) are the first and second elements on the fifth line
-    def agent(self, line):
+    def init_agent(self, line):
         row = line[0]
         col = line[1]
         self.board[row][col] = AGENT
-        self.agent_location = (row,col)
+        self.agent = (row, col)
+
+    # Outputs the board in the same format as Kask ~ for testing purposes
+    def output_board_to_file(self, path_to_directory):
+        p = Path(path_to_directory + self.name + "-generated.txt")
+        # p = Path("/Users/brookeryan/PycharmProjects/CS271/generated/sokoban08-generated.txt")
+        if not p.exists():
+            p.touch()
+        file = p.open(mode='w')
+        line = ''
+
+        for x in self.board:
+            for y in x:
+                line += y
+            file.write(line)
+            line = '\n'
+
+        generated_path = p.name
+        file.close()
+
 
 #
-# Box object contains location coordinates and available moves
+# Converts the visual/ASCII representation of the board
 #
-class Box:
-    def __init__(self, coordinates):
-        self.coordinates = coordinates
-        self.moves = []
+class Visual(Sokoban):
 
-#
-# Agent contains location coordinates
-#
-class Agent:
-    def __init__(self, row, col):
-        self.row = row
-        self.col = col
-        self.coordinates = (row, col)
-        self.moves = []
+    def __init__(self, path_to_file):
+
+        with open(path_to_file, 'r') as f:
+
+            read_data = f.read()
+            _lines = read_data.split("\n")
+
+            # Member variables
+            self.num_cols = max(list(map(lambda x: len(_lines[x]), range(len(_lines)))))
+            self.num_rows = len(_lines)
+            self.board = np.full((self.num_rows, self.num_cols), SPACE, dtype=object)
+            self.agent = ()
+            self.goals = []
+            self.boxes = []
+            self.corners = []
+
+            # Initialize characters of board
+            for row in range(self.num_rows):
+                line = _lines[row]
+                for col, character in enumerate(line):
+                    self.board[row][col] = character
+                    if character is AGENT:
+                        self.agent = (row, col)
+                    elif character is GOAL:
+                        self.goals.append((row, col))
+                    elif character is BOX:
+                        self.boxes.append((row, col))
+
+            # Initialize corners
+            for row in range(self.num_rows):
+                line = _lines[row]
+                for col, character in enumerate(line):
+                    if is_corner(row, col, self.board):
+                        self.corners.append((row, col))

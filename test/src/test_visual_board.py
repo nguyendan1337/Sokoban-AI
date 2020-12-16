@@ -1,24 +1,40 @@
 from unittest import TestCase
 from parameterized import *
-from board import Board
-import numpy as np
+from sokoban import Sokoban
 from preprocess import *
 from helper import *
 
 
-# The board.py file gives the "intuitive" height and width where h and w are at least 1
+# The visual.py file gives the "intuitive" height and width where h and w are at least 1
 @parameterized_class(('file', 'dimensions'), [
-    ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level0.txt", (3, 14)),
-    ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level1.txt", (11, 19)),
-    ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level2.txt", (10, 14)),
-    ("/Users/brookeryan/PycharmProjects/CS271/test/input/levels/level47.txt", (17, 31))
+    ("../input/levels/level0.txt", (3, 14)),
+    ("../input/levels/level1.txt", (11, 19)),
+    ("../input/levels/level2.txt", (10, 14)),
+    ("../input/levels/level47.txt", (17, 31)),
+    ("../input/pySokoban_levels/level3", (10, 17)),
+    ("../input/pySokoban_levels/level4", (14, 19)),
+    ("../input/pySokoban_levels/level5", (13, 17)),
+    ("../input/pySokoban_levels/level6", (11, 12)),
+    ("../input/pySokoban_levels/level7", (12, 13)),
+    ("../input/pySokoban_levels/level8", (16, 16)),
+    ("../input/pySokoban_levels/level9", (14, 17)),
+    ("../input/pySokoban_levels/level10", (16, 19)),
+    ("../input/pySokoban_levels/level11", (15, 19)),
+    ("../input/pySokoban_levels/level12", (13, 17)),
+    ("../input/pySokoban_levels/level13", (13, 19)),
 ])
 class TestBoard(TestCase):
 
     def setUp(self):
-        self.board = Board(self.file)
+        self.board = Sokoban().build(self.file, mode="visual")
         self.num_rows = self.dimensions[0]
         self.num_cols = self.dimensions[1]
+
+    # Tests to make sure the levelsX.txt board we pulled from the internet is actually configured correctly
+    def test_is_valid_configuration(self):
+        self.assertIsNotNone(self.board.goals)
+        self.assertIsNotNone(self.board.boxes)
+        self.assertEqual(len(self.board.goals), len(self.board.boxes))
 
     def test_print_board(self):
         translation = {39: None}
