@@ -46,21 +46,28 @@ class Sokoban:
         print(str(self.board).translate(translation))
 
     # Print with colors in Dan-sanctioned format
-    def pprint(self):
+    # Optionally, pass in the most recently moved box coordinates to have it highlight green.
+    def pprint(self, action=None):
+        if action is not None:
+            print(action)
+
         for row in range(self.num_rows):
             for col in range(self.num_cols):
-                if self.board[row][col] is AGENT:
-                    print(Color.PURPLE + AGENT + Color.END, end=' ')
-                elif self.board[row][col] is BOX_ON_GOAL:
-                    print(Color.GREEN + BOX_ON_GOAL + Color.END, end=' ')
-                elif self.board[row][col] is BOX:
-                    print(Color.YELLOW + BOX + Color.END, end=' ')
-                elif self.board[row][col] is GOAL:
-                    print(Color.CYAN + GOAL + Color.END, end=' ')
-                elif self.board[row][col] is WALL:
-                    print(Color.BOLD + WALL + Color.END, end=' ')
+                if action == (row, col):
+                    print(Color.GREEN + self.board[row][col] + Color.END, end=' ')
                 else:
-                    print(self.board[row][col], end=' ')
+                    if self.board[row][col] is AGENT:
+                        print(Color.PURPLE + AGENT + Color.END, end=' ')
+                    elif self.board[row][col] is BOX_ON_GOAL:
+                        print(Color.BLUE + BOX_ON_GOAL + Color.END, end=' ')
+                    elif self.board[row][col] is BOX:
+                        print(Color.YELLOW + BOX + Color.END, end=' ')
+                    elif self.board[row][col] is GOAL:
+                        print(Color.CYAN + GOAL + Color.END, end=' ')
+                    elif self.board[row][col] is WALL:
+                        print(Color.BOLD + WALL + Color.END, end=' ')
+                    else:
+                        print(self.board[row][col], end=' ')
             print()
 
 

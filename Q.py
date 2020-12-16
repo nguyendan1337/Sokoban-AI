@@ -9,18 +9,18 @@ def is_terminal_state(boxes, rewards):
     #if all boxes are in goals, terminal will remain true
     for box_coordinates in boxes:
 
-        # if the reward for this box's location is -100, then it is in a corner terminal state
-        if rewards[box_coordinates] == -100:
+        # if the reward for this box's location is CORNER_REWARD, then it is in a corner terminal state
+        if rewards[box_coordinates] == CORNER_REWARD:
             return True, DEAD_STATUS
 
-        # if the box is not at a goal, then it is not in a terminal state
-        if rewards[box_coordinates] == -1:
+        # if the box is not at a goal or corner, then it is not in a terminal state
+        if rewards[box_coordinates] == DEFAULT_REWARD:
             terminal = False
 
-    #also check history
-    #if we are in a repeated state, then we are in a terminal state, return TRUE
-    #finish this last
-    if terminal == False:
+    # also check history
+    # if we are in a repeated state, then we are in a terminal state, return TRUE
+    # finish this last
+    if not terminal:
         return terminal, ALIVE_STATUS
     else:
         return terminal, GOAL_STATUS
