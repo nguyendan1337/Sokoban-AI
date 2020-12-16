@@ -1,5 +1,8 @@
 from unittest import TestCase, skip
 from parameterized import *
+
+from constants import GOAL_REWARD, CORNER_REWARD, WALL, WALL_REWARD, DEFAULT_REWARD
+from preprocess import preprocess
 from sokoban import Sokoban
 import filecmp
 
@@ -79,3 +82,18 @@ class TestKaskBoard(TestCase):
             for col in range(self.generated_board.__getattribute__('num_cols')):
                 self.assertEqual(self.expected_board.board[row][col], self.generated_board.board[row][col],
                                  "Assertion failed at coordinate [{row}, {col}]".format(row=row, col=col))
+
+    def test_preprocess(self):
+        rewards = preprocess(self.generated_board)
+        print(rewards)
+
+        for i in range(self.generated_board.num_rows):
+            for j in range(self.generated_board.num_cols):
+                if (i, j) in self.generated_board.goals:
+                    self.assertEqual(GOAL_REWARD, rewards[i][j])
+                elif (i, j) in self.generated_board.corners:
+                    self.assertEqual(CORNER_REWARD, rewards[i][j])
+                elif self.generated_board.board[i][j] is WALL:
+                    self.assertEqual(WALL_REWARD, rewards[i][j])
+                else:
+                    self.assertEqual(DEFAULT_REWARD, rewards[i][j])
