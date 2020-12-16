@@ -39,11 +39,9 @@ class Sokoban:
 class Kask(Sokoban):
 
     # Initialization of the board requires the path to the sokoban__.txt file
-    # Mode can either be visual or kask.
     def __init__(self, path_to_file):
 
         file = open(path_to_file)
-        file_name = file.name.split("/")[-1].split(".")[0]
 
         # Each line of the file is an element in the list
         file_contents = file.readlines()
@@ -75,7 +73,6 @@ class Kask(Sokoban):
 
     # Number of wall squares is the first number on the second line
     def init_wall_squares(self, line):
-        print("line length!!!", len(line))
         for i in range(0, len(line), 2):
             row = line[i]
             col = line[i + 1]
@@ -115,7 +112,6 @@ class Kask(Sokoban):
     # Outputs the board in the same format as Kask ~ for testing purposes
     def output_board_to_file(self, path_to_directory):
         p = Path(path_to_directory)
-        # p = Path("/Users/brookeryan/PycharmProjects/CS271/generated/sokoban08-generated.txt")
         if not p.exists():
             p.touch()
         file = p.open(mode='w')
@@ -127,7 +123,6 @@ class Kask(Sokoban):
             file.write(line)
             line = '\n'
 
-        generated_path = p.name
         file.close()
         return p
 
