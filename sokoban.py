@@ -69,11 +69,13 @@ class Kask(Sokoban):
         self.init_goals(data[GOALS_LINE][1:])
         self.init_boxes(data[BOXES_LINE][1:])
         self.init_agent(data[AGENT_LINE])
+        self.init_corners()
 
         file.close()
 
     # Number of wall squares is the first number on the second line
     def init_wall_squares(self, line):
+        print("line length!!!", len(line))
         for i in range(0, len(line), 2):
             row = line[i]
             col = line[i + 1]
@@ -103,9 +105,16 @@ class Kask(Sokoban):
         self.board[row][col] = AGENT
         self.agent = (row, col)
 
+    def init_corners(self):
+        # Initialize corners
+        for row in range(self.num_rows):
+            for col in range(self.num_cols):
+                if is_corner(row, col, self.board):
+                    self.corners.append((row, col))
+
     # Outputs the board in the same format as Kask ~ for testing purposes
     def output_board_to_file(self, path_to_directory):
-        p = Path(path_to_directory + self.name + "-generated.txt")
+        p = Path(path_to_directory)
         # p = Path("/Users/brookeryan/PycharmProjects/CS271/generated/sokoban08-generated.txt")
         if not p.exists():
             p.touch()
@@ -120,6 +129,7 @@ class Kask(Sokoban):
 
         generated_path = p.name
         file.close()
+        return p
 
 
 #
@@ -154,6 +164,9 @@ class Visual(Sokoban):
                         self.goals.append((row, col))
                     elif character is BOX:
                         self.boxes.append((row, col))
+                    elif character is BOX_ON_GOAL:
+                        self.boxes.append((row, col))
+                        self.goals.append((row, col))
 
             # Initialize corners
             for row in range(self.num_rows):
