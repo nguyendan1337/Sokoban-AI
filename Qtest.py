@@ -9,18 +9,6 @@ from actionfunction import perform_action
 #
 # TESTS
 #
-# FROM SOKOBAN INPUT FILES
-# sokoban = sb.Sokoban("test/input/sokoban/sokoban00.txt")
-#sokoban = sb.Sokoban("test/input/sokoban/sokoban01.txt")
-# sokoban.print()
-# boxes = BFS.get_reachable_boxes(sokoban.board, sokoban.agent_location)
-# pprint.pprint(boxes)
-
-# FROM TEXT LEVELS
-# b = b.Board("test/input/levels/level0.txt")
-# b = b.Board("test/input/levels/level1.txt")
-# b = b.Board("test/input/levels/level2.txt")
-# b = b.Board("test/input/levels/level47.txt")
 game = Sokoban().build("test/input/kask_input/sokoban08.txt", mode="kask")
 board = game.board
 agent = game.agent

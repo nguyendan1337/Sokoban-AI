@@ -13,7 +13,7 @@ q_table = {}
 #################
 # MAIN FUNCTION #
 #################
-game_original = Sokoban().build("test/input/kask_input/sokoban01.txt", mode="kask")
+game_original = Sokoban().build("test/input/kask_input/sokoban08.txt", mode="kask")
 rewards = preprocess(game_original)
 
 # define training parameters
@@ -21,7 +21,7 @@ epsilon = 0.9  # the percentage of time when we should take the best action (ins
 discount_factor = 0.9  # discount factor for future rewards
 learning_rate = 0.9  # the rate at which the AI agent should learn
 explored = []
-r = 20
+r = 5
 
 # run through 1000 training episodes
 for episode in range(r):
