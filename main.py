@@ -54,7 +54,7 @@ for episode in range(r):
 
         # show move taken
         game.board = board
-        game.pprint()
+        game.pprint(action=new_box_position)
 
         # update Q values in Q Table
         q_table = update_q_table(q_table, rewards, new_box_position, action, discount_factor, learning_rate)
