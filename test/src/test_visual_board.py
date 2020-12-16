@@ -23,7 +23,7 @@ from helper import *
     ("../input/pySokoban_levels/level12", (13, 17)),
     ("../input/pySokoban_levels/level13", (13, 19)),
 ])
-class TestBoard(TestCase):
+class TestVisualBoard(TestCase):
 
     def setUp(self):
         self.board = Sokoban().build(self.file, mode="visual")
@@ -59,11 +59,12 @@ class TestBoard(TestCase):
     # Tests that the individual characters in the board are translated correctly
     def test_translation(self):
         _characters = {
-            ' ': SPACE,  # free space
-            '@': AGENT,  # player
-            '#': WALL,  # wall
-            '$': BOX,  # box
-            '.': GOAL  # goal
+            ' ': SPACE,
+            '@': AGENT,
+            '#': WALL,
+            '$': BOX,
+            '.': GOAL,
+            '*': BOX_ON_GOAL
         }
         arr = self.board.board
 
