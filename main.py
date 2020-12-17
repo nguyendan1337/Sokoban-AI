@@ -13,15 +13,14 @@ q_table = {}
 #################
 # MAIN FUNCTION #
 #################
-game_original = Sokoban().build("test/input/kask_input/sokoban08.txt", mode="kask")
+game_original = Sokoban().build("test/input/kask_input/sokoban02.txt", mode="kask")
 rewards = preprocess(game_original)
 
 # define training parameters
 epsilon = 0.9  # the percentage of time when we should take the best action (instead of a random action)
 discount_factor = 0.9  # discount factor for future rewards
 learning_rate = 0.9  # the rate at which the AI agent should learn
-explored = []
-r = 5
+r = 1000
 
 # run through 1000 training episodes
 for episode in range(r):
@@ -31,6 +30,8 @@ for episode in range(r):
     agent = game.agent
     board = game.board
     boxes = game.boxes
+    explored = []
+    state_history = []
     terminal = False
     print("NEW EPISODE")
     game.pprint()
@@ -45,9 +46,15 @@ for episode in range(r):
             game.pprint()
             print("No reachable boxes!")
             break
+        state_history += [list(reachable_boxes.keys())]
 
         # choose which box and move to make
-        action = get_next_action(reachable_boxes, epsilon, q_table)
+        action = get_next_action(reachable_boxes, epsilon, q_table, state_history)
+        if not action:
+            terminal = True
+            game.pprint()
+            print("Reachable boxes have no good moves!")
+            break
 
         # perform the action, which updates box positions, agent position, explored path, board
         agent, boxes, explored, new_box_position, board = \
@@ -66,3 +73,9 @@ for episode in range(r):
 
     # print the path the agent took, print the q table
     print("EPISODE OVER")
+    print("explored " + str(len(explored)))
+    print("history " + str(len(state_history)))
+    if status == GOAL_STATUS:
+        print("episode " + str(episode))
+        print(explored)
+        break
