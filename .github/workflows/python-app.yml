@@ -288,3 +288,21 @@ jobs:
       run: |
         pwd
         python -m unittest sokoban10.py
+
+  sokoban10a:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
+    - name: sokoban10a trial (logging = false)
+      working-directory: ./test/trials_no_logging/
+      run: |
+        pwd
+        python -m unittest sokoban10a.py
