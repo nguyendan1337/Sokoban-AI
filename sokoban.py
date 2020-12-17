@@ -48,8 +48,8 @@ class Sokoban:
     # Print with colors in Dan-sanctioned format
     # Optionally, pass in the most recently moved box coordinates to have it highlight green.
     def pprint(self, action=None):
-        if action is not None:
-            print(action)
+        # if action is not None:
+        #     print(action)
 
         for row in range(self.num_rows):
             for col in range(self.num_cols):

@@ -81,15 +81,10 @@ def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
             # print("potential state = " + str(potential_state))
             # print("state history = " + str(state_history))
 
-            # potential_state = [potential_move if box == box_coordinates else box for box in current_state]
-
             for state in state_history:
                 if collections.Counter(potential_state) == collections.Counter(state):
-                    # print("Potential state already explored")
                     bad_move = True
                     break
-                # else:
-                    # print("Potential state explorable")
 
             if not bad_move:
                 good_moves += [move]
@@ -102,11 +97,11 @@ def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
                 q_values[box_coordinates] = {m : q_table[box_coordinates][m]}
 
     if not q_values:
-        print("random box and move")
+        # print("Can only move into previous state, choosing random move")
         box = random.choice(list(boxes.items()))
         move = random.choice(list(box[1].keys()))
         box_move = [box[0], move]
-        print("box move")
+        # print(box_move)
         return box_move
 
     # choose a random box and a random move from the reachable boxes
