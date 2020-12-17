@@ -6,10 +6,21 @@ name: Python application
 on: [push, pull_request]
 
 jobs:
-  build:
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: Set up Python 3.8
+#      uses: actions/setup-python@v2
+#      with:
+#        python-version: 3.8
+#    - name: Install dependencies
+#      run: |
+#        python -m pip install --upgrade pip
+#        pip install .
 
+  sokoban00:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.8
@@ -20,155 +31,278 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install .
-
     - name: sokoban00 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban00.py
+        pwd
+        python -m unittest sokoban00.py
 
+  sokoban01:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban01 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban01.py
+        pwd
+        python -m unittest sokoban01.py
 
+  sokoban02:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban02 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban02.py
+        pwd
+        python -m unittest sokoban02.py
 
+  sokoban03:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban03 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban03.py
+        pwd
+        python -m unittest sokoban03.py
 
+  sokoban04:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban04 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban04.py
+        pwd
+        python -m unittest sokoban04.py
 
+  sokoban05a:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban05a trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban05a.py
+        pwd
+        python -m unittest sokoban05a.py
 
+  sokoban05b:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban05b trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban05b.py
+        pwd
+        python -m unittest sokoban05b.py
 
+  sokoban06a:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban06a trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban06a.py
+        pwd
+        python -m unittest sokoban06a.py
 
+  sokoban06b:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban06b trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban06b.py
+        pwd
+        python -m unittest sokoban06b.py
 
+  sokoban06c:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban06c trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban06c.py
+        pwd
+        python -m unittest sokoban06c.py
 
+  sokoban07a:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban07a trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban07a.py
+        pwd
+        python -m unittest sokoban07a.py
 
+  sokoban07b:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban07b trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban07b.py
+        pwd
+        python -m unittest sokoban07b.py
 
+  sokoban08:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban08 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban08.py
+        pwd
+        python -m unittest sokoban08.py
 
+  sokoban09:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban09 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban09.py
+        pwd
+        python -m unittest sokoban09.py
 
+  sokoban10:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
     - name: sokoban10 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
-        python sokoban10.py
+        pwd
+        python -m unittest sokoban10.py
 
-    # Trials WITH full logging:
-
-#    - name: sokoban00 trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban00.py
-#
-#    - name: sokoban01 trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban01.py
-#
-#    - name: sokoban02 trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban02.py
-#
-#    - name: sokoban03 trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban03.py
-#
-#    - name: sokoban04 trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban04.py
-#
-#    - name: sokoban05a trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban05a.py
-#
-#    - name: sokoban05b trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban05b.py
-#
-#    - name: sokoban06a trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban06a.py
-#
-#    - name: sokoban06b trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban06b.py
-#
-#    - name: sokoban06c trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban06c.py
-#
-#    - name: sokoban07a trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban07a.py
-#
-#    - name: sokoban07b trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban07b.py
-#
-#    - name: sokoban08 trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban08.py
-#
-#    - name: sokoban09 trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban09.py
-#
-#    - name: sokoban10 trial (logging = true)
-#      working-directory: ./test/trials_with_logging/
-#      run: |
-#        python sokoban10.py
+  sokoban10a:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
+    - name: sokoban10a trial (logging = false)
+      working-directory: ./test/trials_no_logging/
+      run: |
+        pwd
+        python -m unittest sokoban10a.py

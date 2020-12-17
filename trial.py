@@ -8,6 +8,7 @@ import copy
 from sokoban import Sokoban
 
 
+# Returns status, number of episodes, solution
 class Trial:
     def __init__(self, file, mode, epsilon=0.8, discount_factor=0.9, learning_rate=0.9, r=500, logging=False):
 
@@ -100,13 +101,14 @@ class Trial:
                 terminal, status = is_terminal_state(boxes, self.rewards)
                 self.log(status)
 
-                # Regardless of logging settings, if it is successful, print
+                # If it is successful, return.
                 if status is GOAL_STATUS:
                     game.pprint()
-                    print("SUCCESS at EPISODE = {e}".format(e=episode))
-                    output(explored)  # print solution to maze
+                    return status, episode, explored
 
             # print the path the agent took, print the q table
             self.log("EPISODE OVER")
 
         print("Trial completed at {t}".format(t=datetime.now().time()))
+        game.pprint()
+        return status, episode, explored

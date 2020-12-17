@@ -25,7 +25,7 @@ class TestTrialNoLogging(TestCase):
         (0.3, 0.9, 0.9),
     ])
     def test_run_trial(self, epsilon, discount_factor, learning_rate):
-        trial = Trial(file="../input/kask_input/sokoban06b.txt",
+        trial = Trial(file="../input/kask_input/sokoban10a.txt",
                       mode="kask",
                       epsilon=epsilon,
                       discount_factor=discount_factor,
