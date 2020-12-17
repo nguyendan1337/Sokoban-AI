@@ -9,13 +9,13 @@ def perform_action(action, reachable_boxes, boxes, explored, board, agent):
     oldbox_p=action[0]
     move=action[1]
 
-    if move=='U':
+    if move==UP:
         new_box_position=(oldbox_p[0]-1, oldbox_p[1])
-    if move=='D':
+    if move==DOWN:
         new_box_position = (oldbox_p[0]+1, oldbox_p[1])
-    if move=='L':
+    if move==LEFT:
         new_box_position = (oldbox_p[0], oldbox_p[1]-1)
-    if move=="R":
+    if move==RIGHT:
         new_box_position = (oldbox_p[0], oldbox_p[1]+1)
 
     boxes=[new_box_position if box == action[0] else box for box in boxes] #return

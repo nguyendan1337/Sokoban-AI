@@ -14,7 +14,7 @@ q_table = {}
 #################
 # MAIN FUNCTION #
 #################
-game_original = Sokoban().build("/Users/Jillian/develope2/Sokoban-AI/test/input/kask_input/sokoban01.txt", mode="kask")
+game_original = Sokoban().build("test/input/kask_input/sokoban01.txt", mode="kask")
 rewards = preprocess(game_original)
 
 # define training parameters
@@ -53,7 +53,6 @@ for episode in range(r):
 
         # perform the action, which updates box positions, agent position, explored path, board
         agent, boxes, explored, new_box_position, board = perform_action(action, reachable_boxes, boxes, explored, board, agent)
-        print(explored)
         # show move taken
         game.board = board
         game.pprint()
@@ -65,7 +64,7 @@ for episode in range(r):
         terminal, status = is_terminal_state(boxes, rewards)
 
         print(status)
-    if terminal==GOAL_STATUS: ##if terminal state is win, print path
-        output(explored)
+    if terminal==GOAL_STATUS: ##if terminal state is win
+        output(explored) #print solution to maze
     # print the path the agent took, print the q table
     print("EPISODE OVER")
