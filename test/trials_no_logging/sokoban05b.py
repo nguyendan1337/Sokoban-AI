@@ -3,6 +3,7 @@ from parameterized import *
 from output_format import output
 from trial import Trial
 from unittest import TestCase
+from constants import TRAINING_EPISODES
 
 
 class TestTrialNoLogging(TestCase):
@@ -29,7 +30,7 @@ class TestTrialNoLogging(TestCase):
                       epsilon=epsilon,
                       discount_factor=discount_factor,
                       learning_rate=learning_rate,
-                      r=5000,
+                      r=TRAINING_EPISODES,
                       logging=False)
 
         status, episode, explored = trial.run()
