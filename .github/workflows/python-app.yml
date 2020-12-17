@@ -22,7 +22,7 @@ jobs:
         pip install .
 
   sokoban00:
-    - needs: build
+    needs: build
     - name: sokoban00 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
