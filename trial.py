@@ -41,6 +41,11 @@ class Trial:
         print("Training episodes = {r}".format(r=r))
         print("Logging = {l}".format(l=logging))
         print("-------------------------------------------------\n")
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print("Initial Game State: ")
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        self.game_original.pprint()
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
 
     # Essentially just print(..), but only executes when the logging option is set to True
     def log(self, message):
@@ -48,7 +53,9 @@ class Trial:
             print(message)
 
     def run(self):
+        print("\n-------------------------------------------------")
         print("Commencing trial at {t}".format(t=datetime.now().time()))
+        print("-------------------------------------------------")
         # run through "r" number of training episodes
         for episode in range(self.r):
 
