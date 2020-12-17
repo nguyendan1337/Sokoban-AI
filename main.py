@@ -4,6 +4,7 @@ from Q import *
 from actionfunction import perform_action
 import copy
 from sokoban import Sokoban
+from output_format import output
 
 # dictionary of q values
 # state: box coordinates
@@ -13,7 +14,7 @@ q_table = {}
 #################
 # MAIN FUNCTION #
 #################
-game_original = Sokoban().build("test/input/kask_input/sokoban08.txt", mode="kask")
+game_original = Sokoban().build("test/input/kask_input/sokoban01.txt", mode="kask")
 rewards = preprocess(game_original)
 
 # define training parameters
@@ -49,6 +50,7 @@ for episode in range(r):
         # choose which box and move to make
         action = get_next_action(reachable_boxes, epsilon, q_table)
 
+
         # perform the action, which updates box positions, agent position, explored path, board
         agent, boxes, explored, new_box_position, board = \
             perform_action(action, reachable_boxes, boxes, explored, board, agent, rewards)
@@ -62,7 +64,9 @@ for episode in range(r):
 
         # check if in terminal state
         terminal, status = is_terminal_state(boxes, rewards)
-        print(status)
 
+        print(status)
+    if terminal==GOAL_STATUS: ##if terminal state is win
+        output(explored) #print solution to maze
     # print the path the agent took, print the q table
     print("EPISODE OVER")
