@@ -45,9 +45,12 @@ class Sokoban:
         np.set_printoptions(edgeitems=30, linewidth=100000, formatter=dict(float=lambda x: "%.3g" % x))
         print(str(self.board).translate(translation))
 
-    # Print with colors in Dan-sanctioned format
+    # Print with colors in Dan-sanctioned format.
     # Optionally, pass in the most recently moved box coordinates to have it highlight green.
-    def pprint(self, action=None):
+    # Logging is set to true by default.
+    def pprint(self, action=None, logging=True):
+        if logging is False:
+            return
         if action is not None:
             print(action)
 
