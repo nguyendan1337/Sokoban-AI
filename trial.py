@@ -1,7 +1,7 @@
 from datetime import datetime
 
+from output_format import output
 from preprocess import *
-from BFS import *
 from Q import *
 from actionfunction import perform_action
 import copy
@@ -26,7 +26,6 @@ class Trial:
         self.q_table = {}
 
         # Data structures used throughout the course of multiple training episodes
-        self.explored = []
         self.game_original = Sokoban().build(file, mode=mode)
         self.rewards = preprocess(self.game_original)
 
@@ -62,8 +61,10 @@ class Trial:
             # initial game state
             game = copy.deepcopy(self.game_original)
             agent = game.agent
-            board = game.board
+            board = copy.deepcopy(game.board)
             boxes = game.boxes
+            explored = []
+            state_history = []
             terminal = False
             self.log("EPISODE NUMBER {e}".format(e=episode))
             game.pprint(logging=self.logging)
@@ -79,12 +80,14 @@ class Trial:
                     self.log("No reachable boxes!")
                     break
 
+                state_history += [list(reachable_boxes.keys())]
+
                 # choose which box and move to make
-                action = get_next_action(reachable_boxes, self.epsilon, self.q_table)
+                action = get_next_action(reachable_boxes, self.epsilon, self.q_table, state_history, board, self.rewards)
 
                 # perform the action, which updates box positions, agent position, explored path, board
                 agent, boxes, explored, new_box_position, board = \
-                    perform_action(action, reachable_boxes, boxes, self.explored, board, agent, self.rewards)
+                    perform_action(action, reachable_boxes, boxes, explored, board, agent, self.rewards)
 
                 # show move taken
                 game.board = board
@@ -101,6 +104,7 @@ class Trial:
                 if status is GOAL_STATUS:
                     game.pprint()
                     print("SUCCESS at EPISODE = {e}".format(e=episode))
+                    output(explored)  # print solution to maze
 
             # print the path the agent took, print the q table
             self.log("EPISODE OVER")

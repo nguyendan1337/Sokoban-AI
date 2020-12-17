@@ -2,7 +2,7 @@
 def output(s):
     moves = len(s)
     s=s+['end']
-    print(s)
+    # print(s)
     i = 0
     series=""
     while (i < len(s) - 1):

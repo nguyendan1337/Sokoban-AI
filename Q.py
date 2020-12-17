@@ -1,6 +1,8 @@
 import random
 import numpy as np
-from constants import *
+import collections
+import copy
+from BFS import *
 
 # determine if any boxes are terminal states
 def is_terminal_state(boxes, rewards):
@@ -26,16 +28,18 @@ def is_terminal_state(boxes, rewards):
         return terminal, GOAL_STATUS
 
 # epsilon greedy algorithm that will choose which box and move to make
-def get_next_action(boxes, epsilon, q_table):
-    q_values = {}               #dictionary of boxes, their moves, and the moves' q_values that we will get from q_table
-    q_move = {}                 #dictionary of boxes and their best moves
-    q_max = {}                  #dictionary of boxes and their highest q values
+def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
+    q_values = {}                       #dictionary of boxes, their moves, and the moves' q_values that we will get from q_table
+    q_move = {}                         #dictionary of boxes and their best moves
+    q_max = {}                          #dictionary of boxes and their highest q values
+    current_state = list(boxes.keys())    #our current state is the list of reachable boxes
 
     #if box is not in the q table, add it to the q table
     #get q values for this box from the q table
     for box in boxes.items():
-        if box[0] not in q_table:
-            q_table[box[0]] = {
+        box_coordinates = box[0]
+        if box_coordinates not in q_table:
+            q_table[box_coordinates] = {
                 UP      : 0,
                 DOWN    : 0,
                 LEFT    : 0,
@@ -43,12 +47,61 @@ def get_next_action(boxes, epsilon, q_table):
             }
         # get this box's available moves
         moves = box[1].keys()
-        #get this box's q values for its available moves from the q table
-        for m in moves:
-            q_values[box[0]] = {m : q_table[box[0]][m]}
+        good_moves = []
+        bad_move = False
+
+        #if we perform this move and we end up in a state that we have been in, it is a bad move
+        #if we end up in a new state after performing this move, it is a good move
+        for move in moves:
+            if move is UP:
+                potential_move = (box_coordinates[0]-1, box_coordinates[1])
+            if move is DOWN:
+                potential_move = (box_coordinates[0]+1, box_coordinates[1])
+            if move is LEFT:
+                potential_move = (box_coordinates[0], box_coordinates[1]-1)
+            if move is RIGHT:
+                potential_move = (box_coordinates[0], box_coordinates[1]+1)
+
+            #if we make this move, what are the new reachable boxes?
+            #create a board for that hypothetical move, call get_reachable_boxes()
+            temp_board = copy.deepcopy(board)
+
+            if rewards[box_coordinates] == GOAL_REWARD:
+                temp_board[box_coordinates] = GOAL
+            else:
+                temp_board[box_coordinates] = SPACE
+            if rewards[potential_move] == GOAL_REWARD:
+                temp_board[potential_move] = BOX_ON_GOAL
+            else:
+                temp_board[potential_move] = BOX
+            potential_state = list(get_reachable_boxes(temp_board, box_coordinates).keys())
+
+            #if reachable boxes after move has been seen before, we will be in a repeated state
+            #if not in a repeated state, add the move to good moves
+            for state in state_history:
+                if collections.Counter(potential_state) == collections.Counter(state):
+                    bad_move = True
+                    break
+
+            if not bad_move:
+                good_moves += [move]
+
+        #get this box's q values for its good moves from the q table
+        for m in good_moves:
+            if box_coordinates in q_values:
+                q_values[box_coordinates].update({m: q_table[box_coordinates][m]})
+            else:
+                q_values[box_coordinates] = {m : q_table[box_coordinates][m]}
+
+    #if you can only move a box into a repeated state, choose a random move
+    if not q_values:
+        box = random.choice(list(boxes.items()))
+        move = random.choice(list(box[1].keys()))
+        box_move = [box[0], move]
+        return box_move
 
     # choose a random box and a random move from the reachable boxes
-    box = random.choice(list(boxes.items()))
+    box = random.choice(list(q_values.items()))
     move = random.choice(list(box[1].keys()))
     box_move = [box[0], move]
 
