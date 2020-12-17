@@ -13,15 +13,16 @@ q_table = {}
 #################
 # MAIN FUNCTION #
 #################
+#can do 0, 1, 2, 3, 4, 5a, 5b, 6a, 6b
 #beware 6c, 7b, 8, 9, 10
-game_original = Sokoban().build("test/input/kask_input/sokoban01.txt", mode="kask")
+game_original = Sokoban().build("test/input/kask_input/sokoban06c.txt", mode="kask")
 rewards = preprocess(game_original)
 
 # define training parameters
 epsilon = 0.7  # the percentage of time when we should take the best action (instead of a random action)
 discount_factor = 0.9  # discount factor for future rewards
 learning_rate = 0.9  # the rate at which the AI agent should learn
-r = 2000
+r = 5000
 
 # run through 1000 training episodes
 for episode in range(r):
@@ -35,7 +36,7 @@ for episode in range(r):
     state_history = []
     terminal = False
     print("EPISODE " + str(episode))
-    game.pprint()
+    # game.pprint()
 
     # continue moving boxes until we reach a terminal state
     while not terminal:
@@ -44,8 +45,8 @@ for episode in range(r):
         reachable_boxes = get_reachable_boxes(board, agent)
         if not reachable_boxes:
             terminal = True
-            game.pprint()
-            print("No reachable boxes!")
+            # game.pprint()
+            # print("No reachable boxes!")
             break
         state_history += [list(reachable_boxes.keys())]
 
@@ -58,14 +59,14 @@ for episode in range(r):
 
         # show move taken
         game.board = board
-        game.pprint(action=new_box_position)
+        # game.pprint(action=new_box_position)
 
         # update Q values in Q Table
         q_table = update_q_table(q_table, rewards, new_box_position, action, discount_factor, learning_rate)
 
         # check if in terminal state
         terminal, status = is_terminal_state(boxes, rewards)
-        print(status)
+        # print(status)
 
     # print the path the agent took, print the q table
     print("EPISODE OVER")
@@ -73,4 +74,5 @@ for episode in range(r):
     if status == GOAL_STATUS:
         print("Success at Episode " + str(episode))
         print(explored)
+        game.pprint()
         break

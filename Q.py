@@ -110,7 +110,6 @@ def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
     # else return the random box and move
     r = np.random.random()
     if r < epsilon:
-        print("Best move!")
         #for each box
         for box in q_values.keys():
             #get the box's move with the highest q value
@@ -131,7 +130,6 @@ def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
         else:
             return box_move
     else:
-        print("Random move!")
         return box_move
 
 def update_q_table(q_table, rewards, new_box_position, action_taken, discount_factor, learning_rate):
