@@ -1,7 +1,7 @@
 from Q import *
 from BFS import *
 import numpy as np
-import board as b
+from sokoban import Sokoban
 import sokoban as sb
 import pprint
 from actionfunction import perform_action
@@ -9,22 +9,11 @@ from actionfunction import perform_action
 #
 # TESTS
 #
-# FROM SOKOBAN INPUT FILES
-# sokoban = sb.Sokoban("test/input/sokoban/sokoban00.txt")
-#sokoban = sb.Sokoban("test/input/sokoban/sokoban01.txt")
-# sokoban.print()
-# boxes = BFS.get_reachable_boxes(sokoban.board, sokoban.agent_location)
-# pprint.pprint(boxes)
-
-# FROM TEXT LEVELS
-# b = b.Board("test/input/levels/level0.txt")
-# b = b.Board("test/input/levels/level1.txt")
-# b = b.Board("test/input/levels/level2.txt")
-b = b.Board("test/input/levels/level47.txt")
-board = b.board
-agent = b.agent
-boxlist=b.boxes
-b.print()
+game = Sokoban().build("test/input/kask_input/sokoban08.txt", mode="kask")
+board = game.board
+agent = game.agent
+boxlist=game.boxes
+game.pprint()
 boxes = get_reachable_boxes(board, agent)
 pprint.pprint(boxes)
 

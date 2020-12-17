@@ -52,10 +52,12 @@ for episode in range(r):
 
 
         # perform the action, which updates box positions, agent position, explored path, board
-        agent, boxes, explored, new_box_position, board = perform_action(action, reachable_boxes, boxes, explored, board, agent)
+        agent, boxes, explored, new_box_position, board = \
+            perform_action(action, reachable_boxes, boxes, explored, board, agent, rewards)
+
         # show move taken
         game.board = board
-        game.pprint()
+        game.pprint(action=new_box_position)
 
         # update Q values in Q Table
         q_table = update_q_table(q_table, rewards, new_box_position, action, discount_factor, learning_rate)

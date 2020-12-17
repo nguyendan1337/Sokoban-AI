@@ -34,9 +34,11 @@ def expand(board, node, boxes, path):
 
     ##UP##
     if board[node[0] - 1][node[1]] != WALL:                         #if UP is not a wall
-        if board[node[0] - 1][node[1]] == BOX:                          #if UP is a box
+        if board[node[0] - 1][node[1]] == BOX\
+                or board[node[0] - 1][node[1]] == BOX_ON_GOAL:          #if UP is a box
             if board[node[0] - 2][node[1]] != WALL\
-                    and board[node[0] - 2][node[1]] != BOX:                         #if you can push the box UP
+                    and board[node[0] - 2][node[1]] != BOX\
+                    and board[node[0] - 2][node[1]] != BOX_ON_GOAL:         #if you can push the box UP
                 if (node[0] - 1, node[1]) in boxes:                             #if box exists in list of boxes
                     boxes[(node[0] - 1, node[1])]\
                         .update({UP: path + [[UP, (node[0]-1, node[1])]]})                #add UP and path to box's moves
@@ -48,9 +50,11 @@ def expand(board, node, boxes, path):
 
     ##DOWN##
     if board[node[0] + 1][node[1]] != WALL:                         #if DOWN is not a wall
-        if board[node[0] + 1][node[1]] == BOX:                          #if DOWN is a box
+        if board[node[0] + 1][node[1]] == BOX\
+                or board[node[0] + 1][node[1]] == BOX_ON_GOAL:          #if DOWN is a box
             if board[node[0] + 2][node[1]] != WALL\
-                    and board[node[0] + 2][node[1]] != BOX:                         #if you can push the box DOWN
+                    and board[node[0] + 2][node[1]] != BOX\
+                    and board[node[0] + 2][node[1]] != BOX_ON_GOAL:         #if you can push the box DOWN
                 if (node[0] + 1, node[1]) in boxes:                             # if box exists in list of boxes
                     boxes[(node[0] + 1, node[1])]\
                         .update({DOWN: path + [[DOWN, (node[0]+1, node[1])]]})              # add DOWN and path to box's moves
@@ -62,9 +66,11 @@ def expand(board, node, boxes, path):
 
     ##LEFT##
     if board[node[0]][node[1] - 1] != WALL:                         #if LEFT is not a wall
-        if board[node[0]][node[1] - 1] == BOX:                          #if LEFT is a box
+        if board[node[0]][node[1] - 1] == BOX\
+                or board[node[0]][node[1] - 1] == BOX_ON_GOAL:                          #if LEFT is a box
             if board[node[0]][node[1] - 2] != WALL\
-                    and board[node[0]][node[1] - 2] != BOX:                         #if you can push the box LEFT
+                    and board[node[0]][node[1] - 2] != BOX\
+                    and board[node[0]][node[1] - 2] != BOX_ON_GOAL:                         #if you can push the box LEFT
                 if (node[0], node[1] - 1) in boxes:                             # if box exists in list of boxes
                     boxes[(node[0], node[1] - 1)]\
                         .update({LEFT: path + [[LEFT, (node[0], node[1]-1)]]})              # add LEFT and path to box's moves
@@ -76,9 +82,11 @@ def expand(board, node, boxes, path):
 
     ##RIGHT##
     if board[node[0]][node[1] + 1] != WALL:                         #if RIGHT is not a wall
-        if board[node[0]][node[1] + 1] == BOX:                          #if RIGHT is a box
+        if board[node[0]][node[1] + 1] == BOX\
+                or board[node[0]][node[1] + 1] == BOX_ON_GOAL:          #if RIGHT is a box
             if board[node[0]][node[1] + 2] != WALL\
-                    and board[node[0]][node[1] + 2] != BOX:                         #if you can push the box RIGHT
+                    and board[node[0]][node[1] + 2] != BOX\
+                    and board[node[0]][node[1] + 2] != BOX_ON_GOAL:         #if you can push the box RIGHT
                 if (node[0], node[1] + 1) in boxes:                             # if box exists in list of boxes
                     boxes[(node[0], node[1] + 1)]\
                         .update({RIGHT: path + [[RIGHT, (node[0], node[1]+1)]]})             # add RIGHT and path to box's moves
