@@ -7,9 +7,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.8
@@ -23,6 +21,7 @@ jobs:
 
   sokoban00:
     needs: build
+    steps:
     - name: sokoban00 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
