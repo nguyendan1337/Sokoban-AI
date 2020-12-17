@@ -4,7 +4,6 @@ from Q import *
 from actionfunction import perform_action
 import copy
 from sokoban import Sokoban
-import pprint
 
 # dictionary of q values
 # state: box coordinates
@@ -15,7 +14,7 @@ q_table = {}
 # MAIN FUNCTION #
 #################
 #beware 6c, 7b, 8, 9, 10
-game_original = Sokoban().build("test/input/kask_input/sokoban04.txt", mode="kask")
+game_original = Sokoban().build("test/input/kask_input/sokoban01.txt", mode="kask")
 rewards = preprocess(game_original)
 
 # define training parameters
@@ -52,11 +51,6 @@ for episode in range(r):
 
         # choose which box and move to make
         action = get_next_action(reachable_boxes, epsilon, q_table, state_history, board, rewards)
-        # if not action:
-        #     terminal = True
-        #     game.pprint()
-        #     print("Reachable boxes have no good moves!")
-        #     break
 
         # perform the action, which updates box positions, agent position, explored path, board
         agent, boxes, explored, new_box_position, board = \
@@ -76,8 +70,7 @@ for episode in range(r):
     # print the path the agent took, print the q table
     print("EPISODE OVER")
     print(str(len(explored)) + " steps taken")
-    print("q table size " + str(len(q_table)))
     if status == GOAL_STATUS:
-        print("episode " + str(episode))
+        print("Success at Episode " + str(episode))
         print(explored)
         break

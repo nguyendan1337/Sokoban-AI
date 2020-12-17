@@ -1,7 +1,6 @@
 import random
 import numpy as np
 import collections
-from constants import *
 import copy
 from BFS import *
 
@@ -63,10 +62,9 @@ def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
             if move is RIGHT:
                 potential_move = (box_coordinates[0], box_coordinates[1]+1)
 
-            #if we make this move, what are the new reachable boxes
+            #if we make this move, what are the new reachable boxes?
+            #create a board for that hypothetical move, call get_reachable_boxes()
             temp_board = copy.deepcopy(board)
-            # print("box " + str(box_coordinates) + " move " + str(move))
-            # print("potential move " + str(potential_move))
 
             if rewards[box_coordinates] == GOAL_REWARD:
                 temp_board[box_coordinates] = GOAL
@@ -77,10 +75,9 @@ def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
             else:
                 temp_board[potential_move] = BOX
             potential_state = list(get_reachable_boxes(temp_board, box_coordinates).keys())
-            # print("current state = " + str(current_state))
-            # print("potential state = " + str(potential_state))
-            # print("state history = " + str(state_history))
 
+            #if reachable boxes after move has been seen before, we will be in a repeated state
+            #if not in a repeated state, add the move to good moves
             for state in state_history:
                 if collections.Counter(potential_state) == collections.Counter(state):
                     bad_move = True
@@ -89,19 +86,18 @@ def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
             if not bad_move:
                 good_moves += [move]
 
-        #get this box's q values for its available moves from the q table
+        #get this box's q values for its good moves from the q table
         for m in good_moves:
             if box_coordinates in q_values:
                 q_values[box_coordinates].update({m: q_table[box_coordinates][m]})
             else:
                 q_values[box_coordinates] = {m : q_table[box_coordinates][m]}
 
+    #if you can only move a box into a repeated state, choose a random move
     if not q_values:
-        # print("Can only move into previous state, choosing random move")
         box = random.choice(list(boxes.items()))
         move = random.choice(list(box[1].keys()))
         box_move = [box[0], move]
-        # print(box_move)
         return box_move
 
     # choose a random box and a random move from the reachable boxes
