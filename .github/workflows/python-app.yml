@@ -28,98 +28,112 @@ jobs:
         python -m unittest sokoban00.py
 
   sokoban01:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban01 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban01.py
 
   sokoban02:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban02 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban02.py
 
   sokoban03:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban03 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban03.py
 
   sokoban04:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban04 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban04.py
 
   sokoban05a:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban05a trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban05a.py
 
   sokoban05b:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban05b trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban05b.py
 
   sokoban06a:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban06a trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban06a.py
 
   sokoban06b:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban06b trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban06b.py
 
   sokoban06c:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban06c trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban06c.py
 
   sokoban07a:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban07a trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban07a.py
 
   sokoban07b:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban07b trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban07b.py
 
   sokoban08:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban08 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban08.py
 
   sokoban09:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban09 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         python -m unittest sokoban09.py
 
   sokoban10:
-    - needs: build
+    needs: build
+    steps:
     - name: sokoban10 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
