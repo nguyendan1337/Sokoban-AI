@@ -21,6 +21,7 @@ jobs:
 
   sokoban00:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban00 trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -29,6 +30,7 @@ jobs:
 
   sokoban01:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban01 trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -37,6 +39,7 @@ jobs:
 
   sokoban02:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban02 trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -45,6 +48,7 @@ jobs:
 
   sokoban03:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban03 trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -53,6 +57,7 @@ jobs:
 
   sokoban04:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban04 trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -61,6 +66,7 @@ jobs:
 
   sokoban05a:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban05a trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -69,6 +75,7 @@ jobs:
 
   sokoban05b:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban05b trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -77,6 +84,7 @@ jobs:
 
   sokoban06a:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban06a trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -85,6 +93,7 @@ jobs:
 
   sokoban06b:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban06b trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -93,6 +102,7 @@ jobs:
 
   sokoban06c:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban06c trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -101,6 +111,7 @@ jobs:
 
   sokoban07a:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban07a trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -109,6 +120,7 @@ jobs:
 
   sokoban07b:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban07b trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -117,6 +129,7 @@ jobs:
 
   sokoban08:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban08 trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -125,6 +138,7 @@ jobs:
 
   sokoban09:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban09 trial (logging = false)
       working-directory: ./test/trials_no_logging/
@@ -133,6 +147,7 @@ jobs:
 
   sokoban10:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: sokoban10 trial (logging = false)
       working-directory: ./test/trials_no_logging/
