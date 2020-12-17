@@ -1,8 +1,11 @@
 from constants import *
 
-def perform_action(action, reachable_boxes, boxes, explored, board, agent):
+def perform_action(action, reachable_boxes, boxes, explored, board, agent, rewards):
     # update previous agent location on board
-    board[agent] = SPACE
+    if rewards[agent] == GOAL_REWARD:
+        board[agent] = GOAL
+    else:
+        board[agent] = SPACE
 
     new_box_position=0
     agent=action[0] #return
@@ -23,7 +26,10 @@ def perform_action(action, reachable_boxes, boxes, explored, board, agent):
     explored += reachable_boxes[agent][move] #return
 
     board[agent] = AGENT
-    board[new_box_position] = BOX
+    if rewards[new_box_position] == GOAL_REWARD:
+        board[new_box_position] = BOX_ON_GOAL
+    else:
+        board[new_box_position] = BOX
 
     return agent, boxes, explored, new_box_position, board
 
