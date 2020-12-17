@@ -25,6 +25,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install .
     - name: Test with unittest
-      working-directory: ./test/trials/
+      working-directory: ./test/src/
       run: |
-        python trial-run.py
+        echo "HI"
+        python -m unittest
