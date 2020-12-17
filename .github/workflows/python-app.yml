@@ -98,77 +98,77 @@ jobs:
 
     # Trials WITH full logging:
 
-    - name: sokoban00 trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban00.py
-
-    - name: sokoban01 trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban01.py
-
-    - name: sokoban02 trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban02.py
-
-    - name: sokoban03 trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban03.py
-
-    - name: sokoban04 trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban04.py
-
-    - name: sokoban05a trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban05a.py
-
-    - name: sokoban05b trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban05b.py
-
-    - name: sokoban06a trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban06a.py
-
-    - name: sokoban06b trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban06b.py
-
-    - name: sokoban06c trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban06c.py
-
-    - name: sokoban07a trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban07a.py
-
-    - name: sokoban07b trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban07b.py
-
-    - name: sokoban08 trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban08.py
-
-    - name: sokoban09 trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban09.py
-
-    - name: sokoban10 trial (logging = true)
-      working-directory: ./test/trials_with_logging/
-      run: |
-        python sokoban10.py
+#    - name: sokoban00 trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban00.py
+#
+#    - name: sokoban01 trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban01.py
+#
+#    - name: sokoban02 trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban02.py
+#
+#    - name: sokoban03 trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban03.py
+#
+#    - name: sokoban04 trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban04.py
+#
+#    - name: sokoban05a trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban05a.py
+#
+#    - name: sokoban05b trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban05b.py
+#
+#    - name: sokoban06a trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban06a.py
+#
+#    - name: sokoban06b trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban06b.py
+#
+#    - name: sokoban06c trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban06c.py
+#
+#    - name: sokoban07a trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban07a.py
+#
+#    - name: sokoban07b trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban07b.py
+#
+#    - name: sokoban08 trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban08.py
+#
+#    - name: sokoban09 trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban09.py
+#
+#    - name: sokoban10 trial (logging = true)
+#      working-directory: ./test/trials_with_logging/
+#      run: |
+#        python sokoban10.py
