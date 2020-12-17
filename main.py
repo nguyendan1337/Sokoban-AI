@@ -14,8 +14,8 @@ q_table = {}
 #################
 # MAIN FUNCTION #
 #################
-#can do 0, 1, 2, 3, 4, 5a, 5b, 6a, 6b
-#beware 6c, 7b, 8, 9, 10
+# can do 0, 1, 2, 3, 4, 5a, 5b, 6a, 6b
+# beware 6c, 7b, 8, 9, 10
 game_original = Sokoban().build("test/input/kask_input/sokoban06c.txt", mode="kask")
 rewards = preprocess(game_original)
 
@@ -54,7 +54,6 @@ for episode in range(r):
         # choose which box and move to make
         action = get_next_action(reachable_boxes, epsilon, q_table, state_history, board, rewards)
 
-
         # perform the action, which updates box positions, agent position, explored path, board
         agent, boxes, explored, new_box_position, board = \
             perform_action(action, reachable_boxes, boxes, explored, board, agent, rewards)
@@ -73,5 +72,5 @@ for episode in range(r):
     if status == GOAL_STATUS:
         game.pprint()
         print("Success at Episode " + str(episode))
-        output(explored) #print solution to maze
+        output(explored)  # print solution to maze
         break
