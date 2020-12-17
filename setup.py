@@ -6,7 +6,7 @@ setup(
     python_requires='>=3.8',
     packages=[''],
     url='https://github.com/nguyendan1337/Sokoban-AI',
-    py_modules=["actionfunction", "BFS", "constants", "helper", "main", "preprocess", "Q", "Qtest", "sokoban"],
+    py_modules=["actionfunction", "BFS", "constants", "helper", "main", "preprocess", "Q", "Qtest", "sokoban", "trial"],
     license='',
     author='Dan Nguyen, Brooke Ryan, Jillian Ness',
     author_email='brooke.ryan@uci.edu',
