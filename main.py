@@ -4,6 +4,7 @@ from Q import *
 from actionfunction import perform_action
 import copy
 from sokoban import Sokoban
+from output_format import output
 
 # dictionary of q values
 # state: box coordinates
@@ -53,6 +54,7 @@ for episode in range(r):
         # choose which box and move to make
         action = get_next_action(reachable_boxes, epsilon, q_table, state_history, board, rewards)
 
+
         # perform the action, which updates box positions, agent position, explored path, board
         agent, boxes, explored, new_box_position, board = \
             perform_action(action, reachable_boxes, boxes, explored, board, agent, rewards)
@@ -68,11 +70,8 @@ for episode in range(r):
         terminal, status = is_terminal_state(boxes, rewards)
         # print(status)
 
-    # print the path the agent took, print the q table
-    print("EPISODE OVER")
-    print(str(len(explored)) + " steps taken")
     if status == GOAL_STATUS:
-        print("Success at Episode " + str(episode))
-        print(explored)
         game.pprint()
+        print("Success at Episode " + str(episode))
+        output(explored) #print solution to maze
         break

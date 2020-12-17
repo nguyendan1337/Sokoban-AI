@@ -16,10 +16,10 @@ ALIVE_STATUS = "Alive"
 GOAL_STATUS = "Goal"
 
 # Moves
-UP = "Up"
-DOWN = "Down"
-LEFT = "Left"
-RIGHT = "Right"
+UP = "U"
+DOWN = "D"
+LEFT = "L"
+RIGHT = "R"
 
 # Constants for the line numbers in the input and what data they represent
 BOARD_DIMENSIONS_LINE = 0
