@@ -4,6 +4,7 @@ from Q import *
 from actionfunction import perform_action
 import copy
 from sokoban import Sokoban
+import pprint
 
 # dictionary of q values
 # state: box coordinates
@@ -13,14 +14,14 @@ q_table = {}
 #################
 # MAIN FUNCTION #
 #################
-game_original = Sokoban().build("test/input/kask_input/sokoban02.txt", mode="kask")
+game_original = Sokoban().build("test/input/kask_input/sokoban08.txt", mode="kask")
 rewards = preprocess(game_original)
 
 # define training parameters
-epsilon = 0.9  # the percentage of time when we should take the best action (instead of a random action)
+epsilon = 0.8  # the percentage of time when we should take the best action (instead of a random action)
 discount_factor = 0.9  # discount factor for future rewards
 learning_rate = 0.9  # the rate at which the AI agent should learn
-r = 1000
+r = 500
 
 # run through 1000 training episodes
 for episode in range(r):
@@ -28,7 +29,7 @@ for episode in range(r):
     # initial game state
     game = copy.deepcopy(game_original)
     agent = game.agent
-    board = game.board
+    board = copy.deepcopy(game.board)
     boxes = game.boxes
     explored = []
     state_history = []
@@ -49,7 +50,7 @@ for episode in range(r):
         state_history += [list(reachable_boxes.keys())]
 
         # choose which box and move to make
-        action = get_next_action(reachable_boxes, epsilon, q_table, state_history)
+        action = get_next_action(reachable_boxes, epsilon, q_table, state_history, board, rewards)
         if not action:
             terminal = True
             game.pprint()

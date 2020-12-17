@@ -2,6 +2,8 @@ import random
 import numpy as np
 import collections
 from constants import *
+import copy
+from BFS import *
 
 # determine if any boxes are terminal states
 def is_terminal_state(boxes, rewards):
@@ -27,7 +29,7 @@ def is_terminal_state(boxes, rewards):
         return terminal, GOAL_STATUS
 
 # epsilon greedy algorithm that will choose which box and move to make
-def get_next_action(boxes, epsilon, q_table, state_history):
+def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
     q_values = {}                       #dictionary of boxes, their moves, and the moves' q_values that we will get from q_table
     q_move = {}                         #dictionary of boxes and their best moves
     q_max = {}                          #dictionary of boxes and their highest q values
@@ -60,7 +62,20 @@ def get_next_action(boxes, epsilon, q_table, state_history):
                 potential_move = (box_coordinates[0], box_coordinates[1]-1)
             if move is RIGHT:
                 potential_move = (box_coordinates[0], box_coordinates[1]+1)
-            potential_state = [potential_move if box == box_coordinates else box for box in current_state]
+
+            #if we make this move, what are the new reachable boxes
+            temp_board = copy.deepcopy(board)
+            if rewards[box_coordinates] == GOAL_REWARD:
+                temp_board[box_coordinates] = GOAL
+            else:
+                temp_board[box_coordinates] = SPACE
+            if rewards[potential_move] == GOAL_REWARD:
+                temp_board[potential_move] = BOX_ON_GOAL
+            else:
+                temp_board[potential_move] = BOX
+            potential_state = get_reachable_boxes(temp_board, box_coordinates)
+
+            # potential_state = [potential_move if box == box_coordinates else box for box in current_state]
 
             for state in state_history:
                 if collections.Counter(potential_state) == collections.Counter(state):
@@ -78,7 +93,12 @@ def get_next_action(boxes, epsilon, q_table, state_history):
                 q_values[box_coordinates] = {m : q_table[box_coordinates][m]}
 
     if not q_values:
-        return None
+        print("random box and move")
+        box = random.choice(list(boxes.items()))
+        move = random.choice(list(box[1].keys()))
+        box_move = [box[0], move]
+        print("box move")
+        return box_move
 
     # choose a random box and a random move from the reachable boxes
     box = random.choice(list(q_values.items()))
