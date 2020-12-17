@@ -23,7 +23,8 @@ def is_terminal_state(boxes, rewards):
     if terminal == False:
         return terminal, ALIVE_STATUS
     else:
-        return terminal, GOAL_STATUS
+
+        return terminal, GOAL_STATUS,
 
 # epsilon greedy algorithm that will choose which box and move to make
 def get_next_action(boxes, epsilon, q_table):
