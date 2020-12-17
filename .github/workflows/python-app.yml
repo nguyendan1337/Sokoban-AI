@@ -26,6 +26,7 @@ jobs:
     - name: sokoban00 trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
+        pwd
         python -m unittest sokoban00.py
 
   sokoban01:
