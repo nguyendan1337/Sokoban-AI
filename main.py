@@ -14,14 +14,14 @@ q_table = {}
 #################
 # MAIN FUNCTION #
 #################
-game_original = Sokoban().build("test/input/kask_input/sokoban08.txt", mode="kask")
+game_original = Sokoban().build("test/input/kask_input/sokoban07b.txt", mode="kask")
 rewards = preprocess(game_original)
 
 # define training parameters
-epsilon = 0.8  # the percentage of time when we should take the best action (instead of a random action)
+epsilon = 0.7  # the percentage of time when we should take the best action (instead of a random action)
 discount_factor = 0.9  # discount factor for future rewards
 learning_rate = 0.9  # the rate at which the AI agent should learn
-r = 500
+r = 2000
 
 # run through 1000 training episodes
 for episode in range(r):
@@ -34,7 +34,7 @@ for episode in range(r):
     explored = []
     state_history = []
     terminal = False
-    print("NEW EPISODE")
+    print("EPISODE " + str(episode))
     game.pprint()
 
     # continue moving boxes until we reach a terminal state
@@ -76,7 +76,10 @@ for episode in range(r):
     print("EPISODE OVER")
     print("explored " + str(len(explored)))
     print("history " + str(len(state_history)))
+    print("q_table " + str(len(q_table)))
     if status == GOAL_STATUS:
         print("episode " + str(episode))
         print(explored)
         break
+
+pprint.pprint(q_table)

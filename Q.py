@@ -65,6 +65,9 @@ def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
 
             #if we make this move, what are the new reachable boxes
             temp_board = copy.deepcopy(board)
+            # print("box " + str(box_coordinates) + " move " + str(move))
+            # print("potential move " + str(potential_move))
+
             if rewards[box_coordinates] == GOAL_REWARD:
                 temp_board[box_coordinates] = GOAL
             else:
@@ -73,14 +76,20 @@ def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
                 temp_board[potential_move] = BOX_ON_GOAL
             else:
                 temp_board[potential_move] = BOX
-            potential_state = get_reachable_boxes(temp_board, box_coordinates)
+            potential_state = list(get_reachable_boxes(temp_board, box_coordinates).keys())
+            # print("current state = " + str(current_state))
+            # print("potential state = " + str(potential_state))
+            # print("state history = " + str(state_history))
 
             # potential_state = [potential_move if box == box_coordinates else box for box in current_state]
 
             for state in state_history:
                 if collections.Counter(potential_state) == collections.Counter(state):
+                    # print("Potential state already explored")
                     bad_move = True
                     break
+                # else:
+                    # print("Potential state explorable")
 
             if not bad_move:
                 good_moves += [move]
@@ -110,6 +119,7 @@ def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
     # else return the random box and move
     r = np.random.random()
     if r < epsilon:
+        print("Best move!")
         #for each box
         for box in q_values.keys():
             #get the box's move with the highest q value
@@ -130,6 +140,7 @@ def get_next_action(boxes, epsilon, q_table, state_history, board, rewards):
         else:
             return box_move
     else:
+        print("Random move!")
         return box_move
 
 def update_q_table(q_table, rewards, new_box_position, action_taken, discount_factor, learning_rate):
