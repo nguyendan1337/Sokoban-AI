@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from output_format import output
 from preprocess import *
 from Q import *
 from actionfunction import perform_action
