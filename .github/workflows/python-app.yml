@@ -292,7 +292,7 @@ jobs:
 #        pwd
 #        python -m unittest sokoban10.py
 
-  sokoban10a:
+  sokoban07b:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -305,8 +305,8 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install .
-    - name: sokoban10a trial (logging = false)
+    - name: sokoban07b trial (logging = false)
       working-directory: ./test/trials_no_logging/
       run: |
         pwd
-        python -m unittest sokoban10a.py
+        python -m unittest sokoban07b.py
