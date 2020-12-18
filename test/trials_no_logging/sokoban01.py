@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from parameterized import *
 
 from output_format import output
@@ -44,6 +46,14 @@ class TestTrialNoLogging(TestCase):
             self.__class__.episode_length[(epsilon, discount_factor, learning_rate)] = episode
 
         self.assertTrue(status, "Trial failed and found no solution.")
+
+    def setUp(self):
+        self.tick = datetime.now()
+
+    def tearDown(self):
+        self.tock = datetime.now()
+        diff = self.tock - self.tick
+        print("Trial time = {t}ms".format(t=(diff.microseconds / 1000))), "ms"
 
     @classmethod
     def tearDownClass(cls):
