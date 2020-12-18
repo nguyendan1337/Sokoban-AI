@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from parameterized import *
 
 from output_format import output
@@ -11,18 +13,7 @@ class TestTrialNoLogging(TestCase):
     episode_length = {}
 
     @parameterized.expand([
-        # Varying the learning rate parameter:
         (0.8, 0.9, 0.9),
-        (0.8, 0.9, 0.6),
-        (0.8, 0.9, 0.3),
-        # Discount factor parameter:
-        (0.8, 0.9, 0.9),
-        (0.8, 0.6, 0.9),
-        (0.8, 0.3, 0.9),
-        # Epsilon parameter:
-        (0.8, 0.9, 0.9),
-        (0.6, 0.9, 0.9),
-        (0.3, 0.9, 0.9),
     ])
     def test_run_trial(self, epsilon, discount_factor, learning_rate):
         trial = Trial(file="../input/kask_input/sokoban10a.txt",
@@ -44,6 +35,14 @@ class TestTrialNoLogging(TestCase):
             self.__class__.episode_length[(epsilon, discount_factor, learning_rate)] = episode
 
         self.assertTrue(status, "Trial failed and found no solution.")
+
+    def setUp(self):
+        self.tick = datetime.now()
+
+    def tearDown(self):
+        self.tock = datetime.now()
+        diff = self.tock - self.tick
+        print("Trial time = {t}ms".format(t=(diff.microseconds / 1000))), "ms"
 
     @classmethod
     def tearDownClass(cls):

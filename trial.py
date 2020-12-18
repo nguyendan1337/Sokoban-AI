@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from output_format import output
 from preprocess import *
 from Q import *
 from actionfunction import perform_action
@@ -58,6 +57,8 @@ class Trial:
         print("-------------------------------------------------")
         # run through "r" number of training episodes
         for episode in range(self.r):
+
+            print("Episode {E}".format(E=episode))
 
             # initial game state
             game = copy.deepcopy(self.game_original)

@@ -31,6 +31,7 @@ import filecmp
     ("../input/kask_input/sokoban08.txt", "../input/kask_input_verify/input08.txt", "../input/generated/sokoban08.txt"),
     ("../input/kask_input/sokoban09.txt", "../input/kask_input_verify/input09.txt", "../input/generated/sokoban09.txt"),
     ("../input/kask_input/sokoban10.txt", "../input/kask_input_verify/input10.txt", "../input/generated/sokoban10.txt"),
+    ("../input/kask_input/sokoban10a.txt", "../input/generated/input10a.txt", "../input/generated/sokoban10a.txt"),
 
 ])
 class TestKaskBoard(TestCase):

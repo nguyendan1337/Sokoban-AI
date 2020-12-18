@@ -1,16 +1,13 @@
 from Q import *
 from BFS import *
-import numpy as np
 from sokoban import Sokoban
-import sokoban as sb
 import pprint
 import collections
-from actionfunction import perform_action
 
 #
 # TESTS
 #
-game = Sokoban().build("test/input/kask_input/sokoban01.txt", mode="kask")
+game = Sokoban().build("../input/kask_input/sokoban01.txt", mode="kask")
 board = game.board
 agent = game.agent
 boxlist=game.boxes
